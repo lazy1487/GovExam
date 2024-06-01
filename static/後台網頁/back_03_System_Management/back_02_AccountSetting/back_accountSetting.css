@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#mainContainer{
+    margin-top: 50px;
+    padding-top:50px;
+    display:block;
+
+}
+#leftContainer{
+    background-color:orange;
+    float: left;
+    width: 30%; /* 左側容器寬度為總寬度的一半 */
+    height:532px;
+}
+
+#SaveButton{
+    width: 100%;
+}
+
+#rightContainer{
+    background-color:blue;
+    float: right;
+    width: 70%; /* 右側容器寬度為總寬度的一半 */
+    height:532px;
+}
+#leftContainer, #rightContainer {
+    flex: 1; /* 讓兩個容器平均分配空間 */
+}
+
+.System,.Basic{
+    margin: 10px;
+}
+
+#rowdata{
+    padding: 5px;
+}
+
+#selectrowdata{
+    display: block;
+}
+#itemBox{
+    display:flex;
+    justify-content:space-between;
+    padding: 10px;
+}
+
+#statusLabel{
+    margin-top: 5px;
+}
+
+button.a.btn.btn-primary{
+    width: 100%;
+    text-align: center;
+}

@@ -1,0 +1,18 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>註冊</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='前台網頁/Front_register.css') }}">  
+</head>
+<body>
+    <h1>註冊畫面</h1>
+    <form method="post" action="/register">
+        <label for="email">電子郵件：</label>
+        <input type="email" name="email" required><br>
+        <label for="username">帳號：</label>
+        <input type="text" name="username" required><br>
+        <label for="password">密碼：</label>
+        <input type="password" name="password" required><br>
+        <label for="confirm_password">再次輸入密碼：</label>
+        <input type="password" name="confirm_password" required><br>
+        <button type="submit">註冊</button>
+    </form>
+{% include '共用網頁/publicUseFooter.html' %}

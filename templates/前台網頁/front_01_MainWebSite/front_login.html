@@ -1,0 +1,85 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>登入</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='前台網頁/front_01_MainWebSite/front_login.css') }}">  
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <div class="py-3"> <!-- 新增的元素 -->
+                <a class="navbar-brand" href="/">Navbar</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="#">證書驗證</a>
+                    </li>-->
+                    {% if user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{user}},您好</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">登出</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">登入</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/login">一般考生/薦送機關登入</a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/frontFeedBack">登入問題回報</a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/frontForgetPassword">忘記密碼</a>
+        </nav>
+    </div>
+
+    <span id="tab-1">一般考生登入</span>
+    <span id="tab-2">薦送機關登入</span>
+
+    <div id="tab" class="container mt-3">
+        <ul>
+            <li><a href="#tab-1">一般考生登入</a></li>
+            <li><a href="#tab-2">薦送機關登入</a></li>
+        </ul>
+
+        <!-- 頁籤的內容區塊 -->
+        <div class="tab-content-1">
+            <form method="post" action="/login">
+                <div class="mb-3">
+                    <input type="text" name="username" class="form-control custom-input" id="exampleInputEmail1" placeholder="請輸入考生帳號" required >
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control custom-input" id="exampleInputPassword1" placeholder="請輸入考生密碼" required>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-primary" id="loginButton" value="登入">
+                </div>
+
+            
+            </form>
+        </div>
+        
+        <div class="tab-content-2">
+            <form method="post" action="#">
+                <div class="mb-3">
+                    <input type="text" name="username" class="form-control custom-input" id="exampleInputEmail1" placeholder="請輸入薦送機關帳號" required >
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control custom-input" id="exampleInputPassword1" placeholder="請輸入薦送機關密碼" required>
+                </div>
+                <div class="mb-3">
+                    <input type="button" class="btn btn-primary" id="loginButton" value="登入">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='前台網頁/front_01_MainWebSite/javascript/front_login.js') }}"></script> 
+{% include '共用網頁/publicUseFooter.html' %}

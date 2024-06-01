@@ -1,0 +1,78 @@
+from publicUseFunction import importPackage, dbConnection
+back_AccountSearch = importPackage.Blueprint('back_AccountSearch', __name__)
+back_AccountSearch.secret_key = 'abc'
+conn = importPackage.conn
+
+pool = importPackage.psycopg2.pool.ThreadedConnectionPool(
+    minconn=1, maxconn=10, dsn=importPackage.DB_URI)
+
+
+@back_AccountSearch.route('/backAccountSearch', methods=['GET', 'POST'])
+def backAccountSearch():
+    cursor = conn.cursor()
+
+    user_id = importPackage.session.get('user_id')
+    user_name = importPackage.session.get('user_name')
+    user_email = importPackage.session.get('user_email')
+    system_accountAdd = importPackage.session.get('system_accountAdd')
+    system_accountModify = importPackage.session.get('system_accountModify')
+    system_Environment = importPackage.session.get('system_Environment')
+    system_SMTPSetting = importPackage.session.get('system_SMTPSetting')
+    system_SystemSearch = importPackage.session.get('system_SystemSearch')
+    basic_CarouselSetting = importPackage.session.get('basic_CarouselSetting')
+    basic_FastLinkSetting = importPackage.session.get('basic_FastLinkSetting')
+    basic_NewSetting = importPackage.session.get('basic_NewSetting')
+    basic_NormalQuestionSetting = importPackage.session.get('basic_NormalQuestionSetting')
+    basic_NoticeSetting = importPackage.session.get('basic_NoticeSetting')
+    basic_PaymentSetting = importPackage.session.get('basic_PaymentSetting')
+    basic_UnitImageSetting = importPackage.session.get('basic_UnitImageSetting')
+
+
+    try:
+        if importPackage.request.method == "POST":
+            useraccount = importPackage.request.form['useraccount']
+            username = importPackage.request.form['username']
+            if useraccount == "" and username == "":
+                cursor.execute(
+                    """SELECT "useraccount", "username", "accountStatus" FROM "back_AccountSetting" """)
+                result = cursor.fetchall()
+            else:
+                cursor.execute(
+                    """SELECT "useraccount", "username", "accountStatus" FROM "back_AccountSetting" WHERE useraccount=%s OR username=%s""",
+                    (useraccount, username))
+                result = cursor.fetchall()
+                return importPackage.render_template('後台網頁/back_03_System_Management/back_02_AccountSetting/back_accountSearch.html', result=result)
+        else:
+            cursor.execute(
+                """SELECT "useraccount", "username", "accountStatus" FROM "back_AccountSetting" """)
+            result = cursor.fetchall()
+    except Exception as e:
+        result = None
+        print('Error:', e)
+    finally:
+        cursor.close()
+        # conn.close()  # 不要在這裡關閉連接
+    print(user_id)
+    return importPackage.render_template('後台網頁/back_03_System_Management/back_02_AccountSetting/back_accountSearch.html', result=result,
+                                             user_id=user_id,
+                                             user_name=user_name,
+                                             user_email=user_email,
+                                             system_accountAdd=system_accountAdd,
+                                             system_accountModify=system_accountModify,
+                                             system_Environment=system_Environment,
+                                             system_SMTPSetting=system_SMTPSetting,
+                                             system_SystemSearch=system_SystemSearch,
+                                             basic_CarouselSetting=basic_CarouselSetting,
+                                             basic_FastLinkSetting=basic_FastLinkSetting,
+                                             basic_NewSetting=basic_NewSetting,
+                                             basic_NormalQuestionSetting=basic_NormalQuestionSetting,
+                                             basic_NoticeSetting=basic_NoticeSetting,
+                                             basic_PaymentSetting=basic_PaymentSetting,
+                                             basic_UnitImageSetting=basic_UnitImageSetting)
+
+
+@back_AccountSearch.route('/backAccountStatus', methods=['GET', 'POST'])
+def backAccountStatus():
+    if importPackage.request.method == "POST":
+        accountStatus = importPackage.request.get['hiddenaccountStatus']
+        print('aaa')

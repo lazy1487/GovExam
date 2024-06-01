@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#exampleInputEmail1{
+    margin-top: 15%;
+}
+#exampleInputPassword1{
+    margin-top: 15%;
+}
+.custom-input {
+    max-width: 300px; /* 调整输入框的最大宽度 */
+    text-align: center; /* 将输入框内的文本居中对齐 */
+    margin: 20px auto 0; /* 上外边距为20px，水平居中 */
+    display: block; /* 设置为块级元素，以便可以应用 margin:auto */
+}
+#loginButton{
+    padding: 5px 10px; 
+    display: block;
+    margin: 0 auto; 
+    width:300px;
+    margin-top: 60px;
+}
+
+a{  
+    text-decoration:none;
+    color:black;
+}
+
+/* --------------------------------------------------------- */
+#tab {
+    width: 500px;
+    height:500px; /* 为了演示目的添加了高度 */
+    background: #1caa5d;
+    border: solid 1px #1caa5d;
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+/* 頁籤ul */
+#tab > ul {
+    /* overflow: hidden; */
+    margin: 0;
+    padding: 20px 20px 0 20px;
+}
+
+#tab > ul > li {
+    list-style-type: none;
+}
+
+/* 頁籤上的文字 */
+#tab > ul > li > a { 
+    text-decoration: none;
+    font-size: 15px;
+    color: #333;
+    float: left;
+    padding: 10px;
+    margin-left: 5px;
+}
+
+/*頁籤div內容*/
+#tab > div {
+    clear: both;
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+/*第一筆的底色*/
+span:target ~ #tab > ul li:first-child a {
+    background: #1caa5d;
+}
+
+span:target ~ #tab > div:first-of-type {
+    visibility: hidden;
+    height: 0;
+    padding: 0 15px;
+}
+
+/*頁籤變換&第一筆*/
+span ~ #tab > ul li:first-child a,
+#tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+#tab-2:target ~ #tab > ul li a[href$="#tab-2"]
+{
+    background: #fff;
+    border-radius: 5px 5px 0 0;
+        
+}
+
+span ~ #tab > ul li:first-child a::before,
+#tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
+#tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before {
+    background-color: white;
+    height: 100%;
+}
+
+/*頁籤內容顯示&第一筆*/
+span ~ #tab > div:first-of-type,
+#tab-1:target ~ #tab > div.tab-content-1,
+#tab-2:target ~ #tab > div.tab-content-2{
+    visibility: visible;
+    height:400px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+span {
+    display: none;
+}

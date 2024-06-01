@@ -1,0 +1,149 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>系統登入查詢</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='後台網頁/back_03_System_Management/back_05_SystemSearch/back_SystemSearch.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="/backExamRegister">一般考生報名</a></li>
+                            <li><a class="dropdown-item" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="/backAccountSetting">帳號權限設定</a></li>                            
+                            <li><a class="dropdown-item" href="/backEnvironmentSetting">系統環境設定</a></li>
+                            <li><a class="dropdown-item" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item" href="/backSystemSearch">系統登入查詢</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        {% if basic_CarouselSetting == 'true' or
+                            basic_FastLinkSetting == 'true' or
+                            basic_NewSetting == 'true' or
+                            basic_NormalQuestionSetting == 'true' or
+                            basic_NoticeSetting == 'true' or
+                            basic_PaymentSetting == 'true' or
+                            basic_UnitImageSetting == 'true' %}
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        {% endif %}
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            {% if basic_CarouselSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backCarouselSetting">輪播圖維護</a></li>
+                            {% endif %}
+                            {% if basic_FastLinkSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backfastLinkSetting">快速連結維護</a></li>
+                            {% endif %}
+                            
+                            {% if basic_NewSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backNewsSetting">最新消息維護</a></li>
+                            {% endif %}
+                            {% if basic_NormalQuestionSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            {% endif %}
+                            {% if basic_NoticeSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backNoticeSetting">注意事項維護</a></li>
+                            {% endif %}
+                            {% if basic_PaymentSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backPaymentSetting">付款提示維護</a></li>
+                            {% endif %}
+                            {% if basic_UnitImageSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backUnitImage">單元形象維護</a></li>
+                            {% endif %}                                                                                                                                                        
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backlogut">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-1" id="mainContainer">        
+        <form action="#" method="post" id="SystemSearchForm">
+            <div class="container mt-1 flex-grow-1" id="leftContainer">
+                <div id="Settingparameter">
+                    <div id="rowdata">
+                        <div id="itemBox">
+                            <input type="text" class="form-control" id="inputAccount" placeholder="請輸入帳號" name="useraccount">
+                        </div>
+                        <div id="itemBox">
+                            <input type="text" class="form-control" id="inputID" placeholder="請輸入使用者IP" name="userIP">
+                        </div>
+                        <div id="itemBox">
+                            <input type="date" class="form-control" id="inputStartTime" name="StartTime">
+                        </div>
+                        <div id="itemBox">
+                            <input type="date" class="form-control" id="inputEndTime" name="EndTime">
+                        </div>
+                        <div id="itemBox">
+                            <button type="submit" class="btn btn-primary" id="search">查詢</button> 
+                            <!-- <a class="form-control btn btn-primary"  href="/backSystemSearch">查詢</a>                           -->
+                        </div>
+                        <div id="itemBox">
+                            <button type="button" class="btn btn-primary" id="clear">清除</button>
+                        </div>
+                        <div id="itemBox">
+                            <!-- <button type="button" class="form-control btn btn-primary" id="output">匯出</button> -->
+                            <a class="btn btn-primary"  href="/backSystemSearchOutput" id="exportData">匯出</a>
+                        </div>
+                    </div>                 
+                </div>
+            </div>
+            <div class="container mt-1 flex-grow-1" id="rightContainer">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">編號</th>
+                        <th scope="col">使用者帳號</th>
+                        <th scope="col">使用者IP</th>
+                        <th scope="col">登入時間</th>
+                        <th scope="col">使用狀態</th>
+                      </tr>
+                    </thead>
+                    {% if result %}
+                        {% for item in result%}
+                        <tbody>
+                            <th scope="col">{{loop.index}}</th>
+                            <th scope="col">{{item[0]}}</th>
+                            <th scope="col">{{item[1]}}</th>
+                            <th scope="col">{{item[2]}}</th>
+                            <th scope="col">{{item[3]}}</th>        
+                        </tbody>
+                        {% endfor %}
+                    {% endif %}
+                  </table>
+            </div>
+        </form>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+    <script src="{{ url_for('static', filename='後台網頁/back_03_System_Management/back_05_SystemSearch/back_SystemSearch.js') }}"></script>    
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>個資委託告知</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='前台網頁/Front_login.css') }}">   -->
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <div class="py-3"> <!-- 新增的元素 -->
+                <a class="navbar-brand" href="/">Navbar</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="#">證書驗證</a>
+                    </li>-->
+                    {% if user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{user}},您好</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">登出</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">登入</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1>個資委託告知</h1>
+    </div>
+{% include '共用網頁/publicUseFooter.html' %}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台首頁</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='後台網頁/back_01_MainWebSite/back_index.css') }}"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="/backExamRegister">一般考生報名</a></li>
+                            <li><a class="dropdown-item" href="/backAgencyRecommendSetting">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        {% if system_accountAdd == 'true' or system_Environment == 'true' or
+                              system_SMTPSetting == 'true' or system_SystemSearch == 'true' %}
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                系統管理模組
+                            </a>
+                        {% endif %}                        
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <!-- 如果使用者不是superuser則直接導入至帳號設定-查詢 -->
+                            {% if system_accountAdd == 'true' %}
+                                <li><a class="dropdown-item" href="/backAccountSetting">帳號權限設定</a></li>
+                            {% else %}
+                                <li><a class="dropdown-item" href="/backAccountSearch">帳號權限設定</a></li>
+                            {% endif %}
+
+                            {% if system_Environment == 'true' %}
+                                <li><a class="dropdown-item" href="/backEnvironmentSetting">系統環境設定</a></li>
+                            {% endif %}
+                            {% if system_SMTPSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backSMTPSetting">SMTP設定</a></li>
+                            {% endif %}
+                            <li><a class="dropdown-item" href="/backSystemSearch">系統登入查詢</a></li>                         
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        {% if basic_CarouselSetting == 'true' or
+                            basic_FastLinkSetting == 'true' or
+                            basic_NewSetting == 'true' or
+                            basic_NormalQuestionSetting == 'true' or
+                            basic_NoticeSetting == 'true' or
+                            basic_PaymentSetting == 'true' or
+                            basic_UnitImageSetting == 'true' %}
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                基本管理模組
+                            </a>
+                        {% endif %}
+                        
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            {% if basic_CarouselSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backCarouselSetting">輪播圖維護</a></li>
+                            {% endif %}
+                            {% if basic_FastLinkSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backfastLinkSetting">快速連結維護</a></li>
+                            {% endif %}
+                            
+                            {% if basic_NewSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backNewsSetting">最新消息維護</a></li>
+                            {% endif %}
+                            {% if basic_NormalQuestionSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            {% endif %}
+                            {% if basic_NoticeSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backNoticeSetting">注意事項維護</a></li>
+                            {% endif %}
+                            {% if basic_PaymentSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backPaymentSetting">付款提示維護</a></li>
+                            {% endif %}
+                            {% if basic_UnitImageSetting == 'true' %}
+                                <li><a class="dropdown-item" href="/backUnitImage">單元形象維護</a></li>
+                            {% endif %}                                                                                                                                                        
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backlogut">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5" id="mainContainerBox">
+        <div class="container mt-5" id=mainContainer>
+            <div class="container mt-5">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="col" colspan="8" class="text-center">使用者相關資訊</th>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%">使用者名稱</td>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%">{{user_name}}</td>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%">使用者IP</td>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%">{{user_id}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%">登入時間</td>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%">{{lastDate}}</td>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%">上次登入</td>
+                            <td scope="col" colspan="2" class="text-center" style="vertical-align:middle;width:25%"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container mt-5" id=mainContainer>
+            <div class="container mt-5" id="normalRegister">
+                <p class="Title">今日一般報名新增比數：</p>
+            </div>
+            <div class="container mt-5">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="col" colspan="8" class="text-center">一般報名資料新增</th>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報名資訊</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">姓名</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">電話</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">電子信箱	</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">付款方式</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">付款狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報名狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報名資訊</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">姓名</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">電話</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">電子信箱	</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">付款方式</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">付款狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報名狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;"><a class="btn btn-primary" href="#">檢視</a></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="8" class="text-center">
+                                <input type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="顯示更多">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container mt-5" id="mainContainer">
+            <div class="container mt-5" id="normalRegister">
+                <p class="Title">今日機關薦送報名新增比數：</p>
+            </div>
+            <div class="container mt-5">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="col" colspan="8" class="text-center">機關薦送報名資料新增</th>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">薦送機關</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報考資料	</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">服務機關全銜</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">姓名	</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">身分證字號</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">付款狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報名狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">薦送機關</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報考資料	</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">服務機關全銜</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">姓名	</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">身分證字號</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">付款狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;">報名狀態</td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;width:12.5%;"><a class="btn btn-primary" href="#">檢視</a></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="8" class="text-center">
+                                <input type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" value="顯示更多">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

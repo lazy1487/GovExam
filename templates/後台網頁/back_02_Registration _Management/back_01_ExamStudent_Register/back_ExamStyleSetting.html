@@ -1,0 +1,137 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>考試類別列表清單</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/後台網頁/back_02_Registration_Management/back_01_ExamStudent_Register/css/back_ExamStyleSetting.css') }}">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="/backExamRegister">一般考生報名</a></li>
+                            <li><a class="dropdown-item" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="/backAccountSetting">帳號權限設定</a></li>
+                            <li><a class="dropdown-item" href="/backEnvironmentSetting">系統環境設定</a></li>
+                            <li><a class="dropdown-item" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item" href="/backSystemSearch">系統登入查詢</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item" href="/backUnitImage">單元形象維護</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backlogut">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamRegister">考生報名資訊</a>
+            <a class="flex-sm-fill text-sm-center nav-link bg-warning text-dark fw-bold active" aria-current="page" href="/backExamStyleSetting">考試類別維護列表</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamStyleSort">考試類別維護排序</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoSetting">考試資訊列表</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoAppend">考試資訊新增</a>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <table class="table table-warning table-hover">
+            <tbody>
+                <tr>
+                    <td scope="col" class="text-center fw-bold" style="width:10%;">編號</td>
+                    <td scope="col" class="text-center fw-bold" style="width:70%;">考試類別名稱</td>
+                    <td scope="col" class="text-center fw-bold" style="width:20%;">功能</td>
+                    </tr>
+                <form action="/backExamStyleSetting" method="post">
+                    <tr>
+                        <td></td>
+                        <td ><input type="text" class="form-control" name="inputExamStyle"></td>
+                        <td scope="col" class="text-center">
+                            <input type="submit" class="btn btn-warning fw-bold" value="新增">
+                        </td>
+                    </tr>
+                    {%if result%}
+                        {%for item in result%}
+                            <tr>
+                                <td class="text-center fw-bold" style="vertical-align:middle;">{{"{:02d}".format(loop.index)}}</td>
+                                <td><input type="text" class="form-control" name="inputExamStyle" value="{{ item[0] }}"></td>
+
+                                <td class="text-center">
+                                    <a class="btn btn-warning fw-bold" href="#">修改</a>
+                                    <a class="btn btn-warning fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#DeleteModal">刪除</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </form>          
+            </tbody>
+        </table>
+    </div>
+    <!-- 第一個互動視窗：刪除確認 -->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="DeleteModalLabel">刪除資料</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">你確定要刪除資料嗎</div>
+            <div class="modal-footer">
+              <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#DeleteResultModal" data-bs-dismiss="modal">刪除</a>
+              <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DeleteResultModal" tabindex="-1" aria-labelledby="DeleteResultlModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteResultlModalLabel">已刪除資料</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">已經刪除</div>
+                <div class="modal-footer">
+
+                    <form action="/backExamRegisterDelete" method="POST" style="display: inline;">
+                        <input type="text" name="hiddeninputExamStyle">
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#DeleteResultModal" data-bs-dismiss="modal">關閉</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='後台網頁/back_02_Registration_Management/ExamStudent_Register/back_ExamStyleSetting.js') }}"></script>      
+</body>
+</html>

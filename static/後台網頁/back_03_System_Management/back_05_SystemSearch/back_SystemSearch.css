@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#SystemSearchForm{
+    margin-top: 70px;
+    padding-top:50px;
+    display:flex;
+
+}
+#leftContainer{
+    background-color:orange;
+    float: left;
+    height:532px;
+    width: 35%;
+}
+
+#rightContainer{
+    background-color:yellow;
+    float: right;
+    width: 65%; 
+    }
+
+.System,.Basic{
+    margin: 10px;
+}
+
+#rowdata{
+    padding: 5px;
+}
+
+#selectrowdata{
+    display: block;
+}
+#itemBox{
+    display:flex;
+    justify-content:space-between;
+    padding: 10px;
+}
+
+#statusLabel{
+    margin-top: 5px;
+}
+
+button.btn.btn-primary,a.btn.btn-primary{
+    width: 100%;
+    text-align: center;
+}

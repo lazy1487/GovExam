@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#mainContainer{
+    margin-top: 50px;
+    padding-top:50px;
+    display:block;
+
+}
+#mainContainer{
+    background-color:orange;
+    float: center;
+    height:532px;
+}
+
+
+#itemBox{
+    display:flex;
+    justify-content:space-between;
+    padding: 10px;
+}
+button.btn.btn-primary{
+    width: 100%;
+    text-align: center;
+}

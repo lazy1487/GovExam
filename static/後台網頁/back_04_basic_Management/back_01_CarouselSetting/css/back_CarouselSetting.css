@@ -1,0 +1,10 @@
+.btn-info:hover {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+    color:#ffffff;
+}
+
+a.dropdown-item:hover{
+    background-color: #dc3545; 
+    border-color: #dc3545;
+}

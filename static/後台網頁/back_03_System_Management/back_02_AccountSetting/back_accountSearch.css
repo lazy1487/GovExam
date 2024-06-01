@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#mainContainer{
+    margin-top: 50px;
+    display:flex;
+}
+
+#accSearchBox{
+    background-color:orange;
+    float: left;
+    width: 30%;
+}
+
+#accSearchResultBox{
+    background-color:yellow;
+    float: right;
+    width: 70%;
+}
+
+#rowdata{
+    display:flex;
+}
+#itemBox{
+    display:flex;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+#statusSelect{
+    margin-left: 10px;
+}
+
+#ButtonBox{
+    display:block;
+}
+
+#ButtonBox input[type="submit"], 
+#ButtonBox input[type="button"] {
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+td.UseButton{
+  display:flex;  
+}

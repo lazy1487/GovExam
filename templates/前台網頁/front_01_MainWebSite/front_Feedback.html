@@ -1,0 +1,105 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>登入</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='前台網頁/Front_login.css') }}">   -->
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <div class="py-3"> <!-- 新增的元素 -->
+                <a class="navbar-brand" href="/">Navbar</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="#">證書驗證</a>
+                    </li>-->
+                    {% if user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{user}},您好</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">登出</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">登入</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link" href="/login">一般考生/薦送機關登入</a>
+            <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/frontFeedBack">登入問題回報</a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/frontForgetPassword">忘記密碼</a>
+        </nav>
+    </div>
+
+    <div class="container mt-5" id=mainContainer>
+        <div class="container mt-5">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td scope="col" colspan="1" style="vertical-align:middle;">問題敘述</td>
+                        <td scope="col" colspan="7"><textarea name="inputDes" class="form-control" id="inputDes"  rows="10" placeholder="請正確詳細描述您的問題，以便客服即時提供解答與幫助"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="2" style="vertical-align:middle;">上傳檔案</td>
+                        <td scope="col" colspan="2">
+                            <input class="form-control" type="file" name="inport_file" id="import_file" accept=".png,.jpg,.gif" multiple>
+                        </td>
+                        <td scope="col" colspan="2" style="vertical-align:middle;">會員狀態</td>
+                        <td scope="col" colspan="2">
+                            <input type="radio" name="membershipStatus" id="isMember" value="Y">
+                            <label for="isNotMember">我是會員</label>
+                            <input type="radio" name="membershipStatus" id="isNotMember" value="N">
+                            <label for="isNotMember">我不是會員</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="2" style="width:15%;vertical-align:middle;">使用者名稱</td>
+                        <td scope="col" colspan="2" style="width:35%;vertical-align:middle;">
+                            <input type="text" name="userName" class="form-control custom-input" id="userName" placeholder="請輸入姓名"></td>
+                        <td scope="col" colspan="2" style="width:15%;vertical-align:middle;">使用者電話</td>
+                        <td scope="col" colspan="2" style="width:35%;vertical-align:middle;"><input type="tel" name="InputPhone" class="form-control custom-input" id="InputPhone" placeholder="請輸入電話"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="1" style="width:15%;vertical-align:middle;">使用者電話電子信箱</td>
+                        <td scope="col" colspan="7" style="width:85%;vertical-align:middle;">
+                            <input type="email" name="InputEmail" class="form-control custom-input" id="Inputeamil" placeholder="請輸入電子信箱">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="8">
+                            <input type="checkbox" name="checkAgree" id="checkAgree">
+                            <label for="scales">我已詳閱</label>
+                            <a href="/main_Collect">個資委託告知</a>
+                            <span>瞭解並且同意將個人資料提供予貴公司蒐集、處理與利用</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="8" class="text-center">
+                            <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#SaveModal">修改資料</a>
+                            <input type="button" class="btn btn-primary" id="allReset" value="重新設定"> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <style>
+
+        #nameInputContainer input {
+            max-width:200px;
+        }
+        
+    </style>
+{% include '共用網頁/publicUseFooter.html' %}

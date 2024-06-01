@@ -1,0 +1,120 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <title>最新消息新增</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/後台網頁/back_04_basic_Management/back_03_NewSetting/css/back_NewsAppend.css') }}">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.6/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                          <li><a class="dropdown-item" href="/backExamRegister">一般考生報名</a></li>
+                          <li><a class="dropdown-item" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="/backAccountSetting">帳號權限設定</a></li>
+                            <li><a class="dropdown-item" href="/backEnvironmentSetting">系統環境設定</a></li>
+                            <li><a class="dropdown-item" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item" href="/backSystemSearch">系統登入查詢</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item" href="/backUnitImage">單元形象維護</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/backlogut">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backNewsSetting">最新消息維護</a>
+            <a class="flex-sm-fill text-sm-center nav-link bg-info text-dark fw-bold active" aria-current="page" href="/backNewsAppend">最新消息新增</a>
+        </nav>
+    </div>
+    
+    <div class="container mt-5">
+        <form action="/backNewsAppend" method="POST">
+            <table class="table table-info table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th scope="col" colspan="4" class="text-center">最新消息新增</th>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="1" class="text-center fw-bold" style="width:20%;vertical-align:middle;">標題</td>
+                        <td scope="col" colspan="3s"><input type="text" class="form-control" name="inputSubTitle" id="inputSubTitle" size="100"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="1" class="text-center fw-bold" style="vertical-align:middle;">簡述</td>
+                        <td scope="col" colspan="3"><textarea name="inputDes" id="inputDes" cols="100" rows="5"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="1" class="text-center fw-bold" style="vertical-align:middle;">內文</td>
+                        <td scope="col" colspan="3"><textarea name="inputContext" id="inputContext" cols="100" rows="5"></textarea></td>
+                    </tr> 
+                    <tr>
+                        <th scope="col" colspan="4" class="text-center">關鍵字設定</th>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan=1 class="text-center fw-bold" style="vertical-align:middle;">網頁標題</td>
+                        <td colspan=3><input type="text" class="form-control" name="inputTitle" id="inputTitle"></td>
+                    </tr>
+                    <tr>
+                        <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">上架時間</td>
+                        <td style="vertical-align:middle;">
+                            <input type="date" class="form-control" name="upLoadTime" id="upLoadTime" min="2024-01-01" max="2099-12-31">
+                        </td>
+                        <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">下架時間</td>
+                        <td style="vertical-align:middle;">
+                            <input type="date" class="form-control" name="RemoveTime" id="RemoveTime" min="2024-01-01" max="2099-12-31">                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col" class="text-center" style="width:20%;vertical-align:middle;">建立人員</td>
+                        <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">{{Handler}}</td>
+                        <td scope="col" class="text-center" style="width:20%;vertical-align:middle;">建立日期</td>
+                        <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">{{DateTime}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="col" colspan="4" class="text-center" style="vertical-align:middle;">
+                            <input type="submit" class="btn btn-info fw-bold" value="確定送出">
+                            <input type="button" class="btn btn-info fw-bold" value="重新設定" id="resetButton">
+                        </td>
+                    </tr>                   
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='後台網頁/back_04_basic_Management/back_03_NewSetting/back_NewsAppend.js') }}"></script> 
+    <script src="{{ url_for('static', filename='lang/zh_TW.js') }}"></script>
+</body>
+</html>

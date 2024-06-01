@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.title{
+    font-size: 2em;
+    text-align:center;
+}
+
+.carousel.slide{
+    background-color:green;
+}
+
+#backendMainLoginBox{
+    justify-content: center;
+    align-content:center;
+    height:800px;
+}
+#backendLoginBox {
+    display:flex;
+    background-color: #F9F5E3;
+    width:60%; /* 設定 .container 的最大寬度，以避免寬度過大 */
+    height: inherit;
+}
+
+#backendLoginAnimation{
+    background-color: #CCF5AC;
+    height: inherit;
+    display: inline;
+}
+.btn.btn.btn-primary{
+    width: 100%;
+}
+
+#InputAccout,#InputPassword{
+    width:100%;
+}
+.w-150 {
+    width: 150%;
+}
