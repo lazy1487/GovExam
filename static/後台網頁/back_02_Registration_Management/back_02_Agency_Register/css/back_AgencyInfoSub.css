@@ -1,0 +1,9 @@
+.btn-warning:hover {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+    color:white;
+}
+
+.disabled-link {
+    pointer-events: none; /* 使链接不可点击 */
+  }

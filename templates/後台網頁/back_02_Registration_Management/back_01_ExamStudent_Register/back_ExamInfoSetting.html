@@ -1,0 +1,378 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>考試類別排序</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/後台網頁/back_02_Registration_Management/back_01_ExamStudent_Register/css/back_ExamInfoSetting.css') }}">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand text-dark fw-bold" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#" data-bs-dismiss="modal">{{user_name}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal" data-bs-dismiss="modal">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="title">考試資訊維護</div>
+    </div> 
+
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link bg-warning text-dark fw-bold active" aria-current="page" href="/backExamInfoSetting">考試資訊列表</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoAppend">考試資訊新增</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoSort">考試資訊排序</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoImport">考試資訊匯入</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backExamIndex">一般考生報名設定</a>
+        </nav>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="navbar-nav mb-2 mb-lg-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backExamIndex">一般考生報名</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSetting">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSearch">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backEnvironmentSetting">系統環境設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSystemSearch">系統登入查詢</a></li>                         
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item fw-bold" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backUnitImage">單元形象維護</a></li>                                                                                                                                                    
+                        </ul>
+                    </li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-warning table-hover">
+                    <tbody>     
+                        <tr>
+                            <td scope="col" class="text-center" style="width:10%;">項目</td>
+                            <td scope="col" class="text-center" style="width:15%;">考試類別</td>
+                            <td scope="col" colspan="2" class="text-center" style="width:30%;">考試名稱</td>
+                            <td scope="col" class="text-center" style="width:15%;">使用狀態</td>
+                            <td scope="col" class="text-center" style="width:10%;">檢視</td>
+                            <td scope="col" class="text-center" style="width:20%;">功能</td>
+                            <td></td>                    
+                        </tr>      
+                        <tr>
+                            <td></td>
+                            <td scope="col" class="text-center">
+                                <select class="form-control" name="selectStyle" id="selectStyle">
+                                    <option value selected>請選擇考試類別</option>
+                                    {% if Listresult %}
+                                        {% for item in Listresult%}
+                                            <option value={{item[0]}}>{{item[1]}}</option>                            
+                                        {% endfor%}                            
+                                    {% endif %}                            
+                                </select>
+                            </td>
+                            <td scope="col" colspan="2" class="text-center"><input type="text"  class="form-control" name="normalQuestionDesTitle"></td>
+                            <td scope="col" class="text-center">
+                                <select class="form-control" name="selectStyle" id="selectStyle">
+                                    <option value selected>請選擇使用狀態</option>
+                                    <option value="Y">使用中</option>
+                                    <option value="N">已關閉</option>                                                  
+                                </select>
+                            </td>
+                            <td></td>                    
+                            <td class="text-center">
+                                <input type="button" class="btn btn-warning fw-bold" value="查詢">
+                                <input type="button" class="btn btn-warning fw-bold" value="清除">
+                                <input type="button" class="btn btn-warning fw-bold" value="匯出">
+                            </td>
+                            <td></td> 
+                        </tr>
+                        {% if result %}
+                            {% for item in result%}
+                            <tr>
+                                <td scope="col" class="text-center" style="vertical-align: middle; text-align: center;">{{"{:02d}".format(loop.index)}}</td>
+                                <td scope="col" class="text-center" style="vertical-align: middle; text-align: center;">{{item[0]}}</td>
+                                <td scope="col" colspan="2" class="text-center"  style="vertical-align: middle; text-align: center;">{{item[1]}}</td>
+                                {% if item[2]=='N' and item[3]=='N' %}
+                                    <td scope="col" class="text-center" style="vertical-align: middle; text-align: center;">未使用</td>
+                                {% else %}
+                                    <td scope="col" class="text-center " style="vertical-align: middle; text-align: center;">使用中</td>
+                                {% endif %}
+                                
+                                <td scope="col" class="text-center" style="vertical-align: middle; text-align: center;">
+                                    <a class="btn btn-warning fw-bold" id="" href="#" data-bs-toggle="modal" data-bs-target="#examStyleModal{{ loop.index }}">檢視</a>
+                                </td>
+                                <td scope="col" class="text-center" style="vertical-align: middle; text-align: center;">
+                                    <a class="btn btn-warning fw-bold" href="/backExamInfoModify?ExamStyleID={{item[0]}}&ExamTitle={{item[1]}}">修改</a>
+                                </td>
+                                <td>
+                                    <div class="modal fade" id="examStyleModal{{ loop.index }}" tabindex="-1" aria-labelledby="examStyleModalLabel{{ loop.index }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title h4" id="examStyleModalLabel{{ loop.index }}">考試資訊</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div id="examInfoFilp" class="fw-bold">考試相關資訊</div>
+                                                    <div id="examInfoPanel">
+                                                        <table class="table table-warning">
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">所屬類別</td>
+                                                                <td class="fw-bold">{{item[0]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">標題</td>
+                                                                <td class="fw-bold">{{item[1]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold">顯示於前台</td>
+                                                                {% if item[2] == 'Y' %}
+                                                                    <td scope="col" class="fw-bold">開放中</td>
+                                                                {% else %}
+                                                                    <td scope="col" class="fw-bold">未開啟</td>
+                                                                {% endif %}
+                                                                <td scope="col" class="fw-bold">開放報名</td>
+                                                                {% if item[3] == 'Y' %}
+                                                                    <td scope="col" class="fw-bold">開放中</td>
+                                                                {% else %}
+                                                                    <td scope="col" class="fw-bold">未開啟</td>
+                                                                {% endif %}
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold">梯次</td>
+                                                                {% if item[4] == '1' %}
+                                                                    <td scope="col" class="fw-bold">第一梯次</td>
+                                                                {% elif item[4] == '2' %}
+                                                                    <td scope="col" class="fw-bold">第二梯次</td>
+                                                                {% elif item[4] == '3' %}
+                                                                    <td scope="col" class="fw-bold">第三梯次</td>
+                                                                {% else  %}
+                                                                    <td scope="col" class="fw-bold">第四梯次</td>
+                                                                {% endif %}
+                                                                <td scope="col" class="fw-bold" >級別</td>
+                                                                {% if item[5] == '1' %}
+                                                                    <td scope="col" class="fw-bold">基礎級</td>
+                                                                {% elif item[5] == '2' %}
+                                                                    <td scope="col" class="fw-bold">進階級</td>
+                                                                {% else %}
+                                                                    <td scope="col" class="fw-bold">專業級</td>
+                                                                {% endif %}
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div id="examRegisterFlip">報名相關資訊</div>
+                                                    <div id="examRegisterPanel">
+                                                        <table class="table table table-warning" style="margin: 0 auto; display: inline-table;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th class="text-center" style="width:10%;vertical-align:middle;">地區</th>
+                                                                    <th class="text-center" style="width:16%;vertical-align:middle;">北部地區</th>
+                                                                    <th class="text-center" style="width:16%;vertical-align:middle;">中部地區</th>
+                                                                    <th class="text-center" style="width:16%;vertical-align:middle;">南部地區</th>
+                                                                    <th class="text-center" style="width:16%;vertical-align:middle;">東部地區</th>
+                                                                    <th class="text-center" style="width:16%;vertical-align:middle;">離島地區</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center" style="vertical-align:middle;">總報名人數</td>
+                                                                    <td scope="col" class="text-center">{{item[6]}}</td>
+                                                                    <td scope="col" class="text-center">{{item[7]}}</td>
+                                                                    <td scope="col" class="text-center">{{item[8]}}</td>
+                                                                    <td scope="col" class="text-center">{{item[9]}}</td>
+                                                                    <td scope="col" class="text-center">{{item[10]}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center" style="vertical-align:middle;">已報名人數</td>
+                                                                    <td class="text-center" style="vertical-align:middle;">{{item[11]}}</td>
+                                                                    <td class="text-center" style="vertical-align:middle;">{{item[12]}}</td>
+                                                                    <td class="text-center" style="vertical-align:middle;">{{item[13]}}</td>
+                                                                    <td class="text-center" style="vertical-align:middle;">{{item[14]}}</td>
+                                                                    <td class="text-center" style="vertical-align:middle;">{{item[15]}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center" style="vertical-align:middle;">人數狀態</td>
+                                                                    {% if item[6] > item[11]%}
+                                                                        <td class="text-center" style="vertical-align:middle;">尚未額滿</td>
+                                                                    {% else %}
+                                                                        <td class="text-center" style="vertical-align:middle;">人數已滿</td>
+                                                                    {% endif %}
+                                                                    
+                                                                    {% if item[7] > item[12]%}
+                                                                        <td class="text-center" style="vertical-align:middle;">尚未額滿</td>
+                                                                    {% else %}
+                                                                        <td class="text-center" style="vertical-align:middle;">人數已滿</td>
+                                                                    {% endif %}
+                                                                    
+                                                                    {% if item[8]> item[13]%}
+                                                                        <td class="text-center" style="vertical-align:middle;">尚未額滿</td>
+                                                                    {% else %}
+                                                                        <td class="text-center" style="vertical-align:middle;">人數已滿</td>
+                                                                    {% endif %}
+                                                                    
+                                                                    {% if item[9]> item[14]%}
+                                                                        <td class="text-center" style="vertical-align:middle;">尚未額滿</td>
+                                                                    {% else %}
+                                                                        <td class="text-center" style="vertical-align:middle;">人數已滿</td>
+                                                                    {% endif %}
+                                                                    
+                                                                    {% if item[10]> item[15]%}
+                                                                        <td class="text-center" style="vertical-align:middle;">尚未額滿</td>
+                                                                    {% else %}
+                                                                        <td class="text-center" style="vertical-align:middle;">人數已滿</td>
+                                                                    {% endif %}
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div id="examContentFlip">內文相關資訊</div>
+                                                    <div id="examContentPanel">Hello world!</div>
+                                                    <div id="examDateFlip">日期相關資訊</div>
+                                                    <div id="examDatePanel">
+                                                        <table class="table table-warning">
+                                                            <tr>
+                                                                <td scope="col" colspan="1" class="fw-bold" style="width:20%;">考試日期</td>
+                                                                <td scope="col" colspan="3" class="fw-bold" style="width:80%;">{{item[21]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" colspan="4" class="fw-bold">文章相關日期</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">文章上架日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[22]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">文章下架日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[23]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" colspan="4" class="fw-bold">一般報名相關資訊</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">一般報名開始日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[24]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">一般報名結束日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[25]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">一般報名繳費開始日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[28]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">一般報名繳費結束日期	</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[29]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" colspan="4" class="fw-bold">薦送報名相關資訊</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">薦送報名開始日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[26]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">薦送報名結束日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[27]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">薦送報名繳費開始日期	</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[30]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">薦送報名繳費結束日期	</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[31]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" colspan="4" class="fw-bold">考試結果相關資訊</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">考試通知單下載起始日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[32]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">考試通知單下載結束日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[33]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">成績查詢開始日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[34]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">成績查詢結束日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[35]}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">證書下載開始日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[36]}}</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">證書下載結束日期</td>
+                                                                <td scope="col" class="fw-bold" style="width:20%;">{{item[37]}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>                                         
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor%}
+                        {% else %}
+                            <tr>
+                                <td scope="col" colspan="7" class="text-center"  style="vertical-align: middle; text-align: center;">目前沒有任何考試資訊資料</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
+    
+    <div class="modal fade" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutModalLabel">登出系統</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要登出帳號嗎</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#LogoutResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="LogoutResultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LogoutResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutResultModalLabel">帳號登出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">帳號已登出</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="/backlogut">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='後台網頁/back_02_Registration_Management/back_01_ExamStudent_Register/javascript/back_ExamInfoSetting.js') }}"></script>
+</body>
+</html>

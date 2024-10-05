@@ -4,3 +4,18 @@
     color:#ffffff;
 }
 
+::selection {
+    background: #ffcc00; /* 選取文字的背景顏色 */
+    color: #000000; /* 選取文字的顏色 */
+}
+
+/* 為了更好地支援不同的瀏覽器，您可以添加這些首碼 */
+::-moz-selection {
+    background: #ffcc00; /* 選取文字的背景顏色 */
+    color: #000000; /* 選取文字的顏色 */
+}
+
+::-webkit-selection {
+    background: #ffcc00; /* 選取文字的背景顏色 */
+    color: #000000; /* 選取文字的顏色 */
+}

@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#mainContainer{
+    margin-top: 50px;
+    padding-top:50px;
+
+}
+
+#statusLabel{
+    margin-top: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+}
+
+.btn-secondary:hover {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+}
+

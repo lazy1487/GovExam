@@ -21,13 +21,12 @@
     display:flex;
     background-color: #F9F5E3;
     width:60%; /* 設定 .container 的最大寬度，以避免寬度過大 */
-    height: inherit;
+
 }
 
 #backendLoginAnimation{
     background-color: #CCF5AC;
-    height: inherit;
-    display: inline;
+
 }
 .btn.btn.btn-primary{
     width: 100%;
@@ -38,4 +37,20 @@
 }
 .w-150 {
     width: 150%;
+}
+
+#backendLogoBox i {
+    font-size: 30px;
+    margin: 0 10px;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+#backendLogoBox i:hover {
+    color: #007bff;
+}
+
+/* 調整圖標的位置 */
+#backendLogoBox {
+    margin-top: 20px;
 }

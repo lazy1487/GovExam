@@ -1,0 +1,208 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>薦送機關資料維護</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/後台網頁/back_02_Registration_Management/back_02_Agency_Register/css/back_AgencyInfo.css') }}">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand text-dark fw-bold" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item"></li>
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#" data-bs-dismiss="modal">{{user_name}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal" data-bs-dismiss="modal">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="title">機關薦送報名設定</div>
+    </div>
+    
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link bg-warning text-dark fw-bold active" aria-current="page" href="/backAgencyInfo">薦送機關維護</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backAgencyInfoAppend">薦送機關新增</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backAgencyInfoImport">薦送機關匯入</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backAgencyInfoIndex">機關薦送報名</a>
+        </nav>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="navbar-nav mb-2 mb-lg-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backExamIndex">一般考生報名</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSetting">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSearch">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backEnvironmentSetting">系統環境設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSystemSearch">系統登入查詢</a></li>                         
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item fw-bold" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backUnitImage">單元形象維護</a></li>                                                                                                                                                    
+                        </ul>
+                    </li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-warning table-hover">
+                    <tbody>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:30%;vertical-align:middle;">機關代碼</td>
+                            <td scope="col" class="text-center fw-bold" style="width:25%;vertical-align:middle;">機關名稱</td>
+                            <td scope="col" class="text-center fw-bold" style="width:25%;vertical-align:middle;">使用狀態</td>
+                            <td scope="col" class="text-center fw-bold" style="width:20%;vertical-align:middle;">功能</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center" style="vertical-align:middle;">
+                                <input class="form-control" type="text" name="AgencyID" id="AgencyID">
+                                
+                            </td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;">
+                                <input class="form-control" type="text" name="Agency" id="Agency">
+                            </td>
+                            <td>
+                                <select class="form-control" ame="ExamStyleID" id="ExamStyleID">
+                                    <option value selected>使用狀態</option>
+                                    <option value="Y">使用中</option>
+                                    <option value="N">已關閉</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center" style="vertical-align:middle;">
+                                <button type="button" class="btn btn-warning fw-bold" id="search">查詢</button>
+                                <button type="button" class="btn btn-warning fw-bold" id="clear">清除</button>
+                                <button type="button" class="btn btn-warning fw-bold" id="export">匯出</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">機關代碼</td>
+                            <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">機關名稱</td>
+                            <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">電話</td>
+                            <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">功能</td>
+                        </tr>
+                    {% if result %}
+                        {% for item in result %}
+                            <tr>            
+                                <td class="text-center fw-bold" style="vertical-align:middle;" id="AgencyID">{{item[0]}}</td>
+                                <td class="fw-bold" style="vertical-align:middle;">{{item[1]}}</td>
+                                <td class="text-center fw-bold" style="vertical-align:middle;">{{item[2]}}</td>
+                                <td class="text-center fw-bold" style="vertical-align:middle;">
+                                <a class="btn btn-warning fw-bold" href="/backAgencyInfoSub?AgencyDepartmentID={{item[0]}}">查閱</a>
+                                <!-- <input type="button" class="btn btn-primary" value="查閱"> -->
+                                <a class="btn btn-warning fw-bold" href="/backAgencyInfoModify?AgencyDepartmentID={{item[0]}}">修改</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else%}
+                        <tr>            
+                            <td scope="col" colspan="4" class="text-center fw-bold" style="vertical-align:middle;">目前無任何薦送機關資料</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">刪除資料</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要刪除資料嗎</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#DeleteResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DeleteResultModal" tabindex="-1" aria-labelledby="DeleteResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteResultlModalLabel">刪除資料訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">資料已刪除</div>
+                <div class="modal-footer">
+                    <form action="/backAgencyInfoDelete" method="POST" style="display: inline;">
+                        <input type="hidden" name="hiddenAgencyID" id="hiddenAgencyID">
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#DeleteResultModal" data-bs-dismiss="modal">關閉</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="modal fade" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutModalLabel">登出系統</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要登出帳號嗎</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#LogoutResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="LogoutResultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LogoutResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutResultModalLabel">帳號登出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">帳號已登出</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="/backlogut">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='後台網頁/back_02_Registration_Management/back_02_Agency_Register/javascript/back_AgencyInfo.js') }}"></script> 
+</body>
+</html>

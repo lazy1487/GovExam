@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.btn-primary:hover{
+    background-color: #dc3545; 
+    border-color: #dc3545;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    border: none;
+    box-shadow: none;
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slideIn 1s forwards;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #0d6efd;
+    margin-top: 10px;
+    opacity: 0;
+    animation: drawLine 1s forwards;
+    animation-delay: 1s; 
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes drawLine {
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+#mainContainer{
+    margin-top: 30px;
+}

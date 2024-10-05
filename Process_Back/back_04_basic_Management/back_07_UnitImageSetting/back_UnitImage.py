@@ -10,10 +10,13 @@ def backPaymentSetting():
 
     conn = pool.getconn()
 
+    user_id = importPackage.session['user_id']
+    user_name = importPackage.session['user_name']
+
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                """SELECT * FROM "back_UnitImage" """)
+                """SELECT * FROM "back_07_UnitImageSetting" """)
             result = cursor.fetchall()
     except Exception as e:
         result = None
@@ -21,4 +24,4 @@ def backPaymentSetting():
     finally:
         cursor.close()
         pool.putconn(conn)
-    return importPackage.render_template('後台網頁/back_04_basic_Management/back_07_UnitImageSetting/back_UnitImage.html', result=result)
+    return importPackage.render_template('後台網頁/back_04_basic_Management/back_07_UnitImageSetting/back_UnitImage.html', result=result, user_name=user_name)

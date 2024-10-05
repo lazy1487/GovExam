@@ -2,79 +2,74 @@ from publicUseFunction import importPackage, dbConnection
 back_CarouselAppend = importPackage.Blueprint('back_CarouselAppend', __name__)
 
 pool = importPackage.psycopg2.pool.ThreadedConnectionPool(
-    minconn=1, maxconn=10, dsn=importPackage.DB_URI)
+    minconn=1, maxconn=999999999999, dsn=importPackage.DB_URI)
 
 
 @back_CarouselAppend.route('/backCarouselAppend', methods=['GET', 'POST'])
 def backCarouselAppend():
 
-    user = importPackage.session['user_id']
     current_time = importPackage.datetime.datetime.now()
     formatted_time = current_time.strftime("%Y/%m/%d")
 
-    # 產生一個 UUID
+    user = importPackage.session.get('user_id')
+    user_name = importPackage.session.get('user_name')
+
+    print(user_name)
     uuid_str = str(importPackage.uuid.uuid4().hex)[:32]
     importPackage.session['uuid_str'] = uuid_str
+
     conn = pool.getconn()
-    # ===================================================================================================================================
-    current_file_path = importPackage.os.path.abspath(__file__)
-    dir_path = importPackage.os.path.dirname(current_file_path)                            # 使用 os.path.dirname() 獲取目錄路徑
-    dir_path_parts = importPackage.os.path.normpath(dir_path).split(importPackage.os.sep)  # 使用 os.path.normpath 將路徑標準化，然後分割路徑
-    try:
-        process_back_index = dir_path_parts.index('Process_Back')
-        # back_04_BasicManagement\back_01_CarouselSetting
-        desired_path = importPackage.os.path.join(dir_path_parts[process_back_index + 1], dir_path_parts[process_back_index + 2]) 
-        desired_path = "static\\後台網頁\\"+desired_path+"\\images\\"
-        ProjectPath = importPackage.os.path.join(*dir_path_parts[1:6])                      # 組出專題檔案路徑
-        importPackage.os.makedirs(desired_path, exist_ok=True)
-    except ValueError:
-        print("Path does not contain 'Process_Back'")
 
-    # ===================================================================================================================================
     if importPackage.request.method == "POST":
-        inputTitle = importPackage.request.form['inputTitle']
-        imageDes = importPackage.request.form['imageDes']
-        selected = importPackage.request.form['selected']
-        inputURL = importPackage.request.form['inputURL']
-        imageFile = importPackage.request.form['imageFile']
-        phoneimageFile = importPackage.request.form['phoneimageFile']
-        upLoadTime = importPackage.request.form['upLoadTime']
-        RemoveTime = importPackage.request.form['RemoveTime']
+        hiddeninputTitle = importPackage.request.form['hiddeninputTitle']
+        hiddenimageDes = importPackage.request.form['hiddenimageDes']
+        hiddenselected = importPackage.request.form['hiddenselected']
+        hiddeninputURL = importPackage.request.form['hiddeninputURL']
+        hiddenimageFile = importPackage.request.form['hiddenimageFile']
+        hiddenphoneimageFile = importPackage.request.form['hiddenphoneimageFile']
+        hiddenupLoadTime = importPackage.request.form['hiddenupLoadTime']
+        hiddenRemoveTime = importPackage.request.form['hiddenRemoveTime']
 
-        importPackage.os.chdir("C:/Users/lazy1/OneDrive/Desktop")
-        # 獲取文件名
-        imageFileName = importPackage.os.path.basename(imageFile)
-        phoneimageFileName = importPackage.os.path.basename(phoneimageFile)
+        hiddenimage_File = importPackage.os.path.basename(hiddenimageFile)
+        hiddenphoneimage_File = importPackage.os.path.basename(
+            hiddenphoneimageFile)
 
-        # 構建完整的文件路徑
-        imageFilePath = importPackage.os.path.join(desired_path)
-        phoneimageFilePath = importPackage.os.path.join(desired_path)
+        current_file_path = importPackage.os.path.abspath(__file__)
+        root_folder = 'FlaskPorject03'
+        origin_Path = current_file_path.split(
+            root_folder)[0] + root_folder + importPackage.os.sep
 
-        # 構建原始文件的完整路徑
-        orgimageFilePath = importPackage.os.path.abspath(imageFileName)
-        orgphoneimageFilePath = importPackage.os.path.abspath(phoneimageFileName)
+        current_directory = importPackage.os.path.dirname(current_file_path)
+        root_folder = 'Process_Back'
+        relative_path = current_directory.split(root_folder)[-1]
+        desired_path = importPackage.os.path.join(
+            relative_path.lstrip(importPackage.os.sep))
+        desired_path = 'static\\後台網頁\\'+desired_path+'\\images'
 
-        importPackage.os.makedirs(imageFilePath, exist_ok=True)
-        importPackage.os.makedirs(phoneimageFilePath, exist_ok=True)
+        originalImagePath = 'allImages\\backEnd\\Carousel'
 
-        # 複製檔案
-        importPackage.shutil.copy(orgimageFilePath,"C:\\"+ProjectPath+"\\"+imageFilePath)
-        importPackage.shutil.copy(orgphoneimageFilePath,"C:\\"+ProjectPath+"\\"+imageFilePath) 
+        fulloriginPath = origin_Path+originalImagePath+'\\'+hiddenimage_File
+        fullCopyPath = origin_Path+desired_path+'\\'+hiddenimage_File
 
+        fullphoneoriginPath = origin_Path+originalImagePath+'\\'+hiddenphoneimage_File
+        fullphoneCopyPath = origin_Path+desired_path+'\\'+hiddenphoneimage_File
+
+        importPackage.shutil.copy(fulloriginPath, fullCopyPath)
+        importPackage.shutil.copy(fullphoneoriginPath, fullphoneCopyPath)
         try:
             with conn.cursor() as cursor:
-                cursor = conn.cursor()
                 cursor.execute("""
                     INSERT INTO "back_Carousel" ("title","imgDescript", "linkOpen","linkUrl",
-                               "Carousel_compute", "Carousel_cellphone", "UploadTime", "RemovedTime","uuid32")
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-                               (inputTitle, imageDes, selected, inputURL, desired_path+imageFileName, desired_path+phoneimageFileName, upLoadTime, RemoveTime, uuid_str))
+                                "Carousel_compute", "Carousel_cellphone", "UploadTime", "RemovedTime","uuid32","switch")
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)""",
+                               (hiddeninputTitle, hiddenimageDes, hiddenselected, hiddeninputURL,
+                                desired_path+'\\'+hiddenimage_File, desired_path+'\\'+hiddenphoneimage_File, hiddenupLoadTime, hiddenRemoveTime, uuid_str, 'Y'))
                 conn.commit()
-                conn.close()
         except Exception as e:
-            result = None
-            print('Error')
+            print('Error:', e)
+            conn.rollback()
         finally:
-            cursor.close()
             pool.putconn(conn)
-    return importPackage.render_template('後台網頁/back_04_basic_Management/back_01_CarouselSetting/back_CarouselAppend.html', Handler=user, DateTime=formatted_time)
+        return importPackage.render_template('後台網頁/back_04_basic_Management/back_01_CarouselSetting/back_CarouselAppend.html', Handler=user, DateTime=formatted_time, user_name=user_name)
+
+    return importPackage.render_template('後台網頁/back_04_basic_Management/back_01_CarouselSetting/back_CarouselAppend.html', Handler=user, DateTime=formatted_time, user_name=user_name)

@@ -2,7 +2,7 @@ from publicUseFunction import importPackage, dbConnection
 back_FastLinkModify = importPackage.Blueprint('back_FastLinkModify', __name__)
 
 pool = importPackage.psycopg2.pool.ThreadedConnectionPool(
-    minconn=1, maxconn=10, dsn=importPackage.DB_URI)
+    minconn=1, maxconn=999999999999, dsn=importPackage.DB_URI)
 
 # @back_FastLinkModify.route('/backFastLinkModify', methods=['GET', 'POST'])
 
@@ -10,9 +10,11 @@ pool = importPackage.psycopg2.pool.ThreadedConnectionPool(
 @back_FastLinkModify.route('/backFastLinkModify', methods=['GET', 'POST'])
 def backFastLinkModify():
 
-    user = importPackage.session.get('user_name')
     current_time = importPackage.datetime.datetime.now()
     formatted_time = current_time.strftime("%Y/%m/%d")
+
+    user = importPackage.session['user_id']
+    user_name = importPackage.session.get('user_name')
 
     Title = str(importPackage.request.args.get('Title'))
 
@@ -25,7 +27,7 @@ def backFastLinkModify():
         selected = importPackage.request.form['selected']
         inputURL = importPackage.request.form['inputURL']
         imageFile = importPackage.request.form['imageFile']
-        print(Title,inputTitle,imageDes,selected,inputURL,imageFile)
+
         try:
             with conn.cursor() as cursor:
                 cursor = conn.cursor()
@@ -59,5 +61,5 @@ def backFastLinkModify():
             cursor.close()
             pool.putconn(conn)
 
-        return importPackage.render_template('後台網頁/back_04_basic_Management/back_02_FastLinkSetting/back_FastLinkModify.html', 
-                                              result=result, handler=user, DateTime=formatted_time, Title=Title)
+        return importPackage.render_template('後台網頁/back_04_basic_Management/back_02_FastLinkSetting/back_FastLinkModify.html',
+                                             result=result, handler=user, DateTime=formatted_time, Title=Title)

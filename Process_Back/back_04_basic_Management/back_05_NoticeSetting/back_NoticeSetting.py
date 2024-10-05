@@ -9,7 +9,7 @@ def backAgencyRecommendSetting():
     cursor = conn.cursor()
     try:
         with conn.cursor() as cursor:
-            cursor.execute(""" select "inputTitle" from "back_NoticeSetting" """)
+            cursor.execute(""" select "noticeStyleCode","noticeStyleTitle","inputTitle","imageDes" from "back_NoticeSetting" """)
             result = cursor.fetchall()
     except Exception as e:
         result=None

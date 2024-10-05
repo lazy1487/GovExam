@@ -9,6 +9,12 @@ pool = importPackage.psycopg2.pool.ThreadedConnectionPool(
 @back_CarouselSetting.route('/backCarouselSetting', methods=['GET', 'POST'])
 def backCarouselSetting():
 
+    current_time = importPackage.datetime.datetime.now()
+    formatted_time = current_time.strftime("%Y/%m/%d")
+
+    user = importPackage.session['user_id']
+    user_name = importPackage.session.get('user_name')
+
     conn = pool.getconn()
     cursor = conn.cursor()
 
@@ -36,49 +42,18 @@ def backCarouselSetting():
             cursor.close()
             pool.putconn(conn)
         return importPackage.render_template('後台網頁/back_04_basic_Management/back_01_CarouselSetting/back_CarouselSetting.html', searchresult=searchresult)
-
-    try:
-        with conn.cursor() as cursor:
-            cursor = conn.cursor()
-            cursor.execute(
-                """SELECT "title","Carousel_compute","UploadTime","RemovedTime","uuid32" FROM "back_Carousel" """)
-            result = cursor.fetchall()
-    except Exception as e:
-        result = None
-        print('Error')
-    finally:
-        cursor.close()
-        pool.putconn(conn)
-
-    return importPackage.render_template('後台網頁/back_04_basic_Management/back_01_CarouselSetting/back_CarouselSetting.html', result=result)
-
-@back_CarouselSetting.route('/backCarouselSettingDelete', methods=['GET', 'POST'])
-def backCarouselSettingDelete():
-    conn = pool.getconn()
-    if importPackage.request.method == 'POST':
-        Title = importPackage.request.form.get('Title')
-        
+    else:
         try:
             with conn.cursor() as cursor:
+                cursor = conn.cursor()
                 cursor.execute(
-                    """DELETE FROM "back_Carousel" WHERE "title" = %s""", (Title,))
-                conn.commit()
+                    """SELECT * FROM "back_Carousel" """)
+                result = cursor.fetchall()
         except Exception as e:
             result = None
             print('Error')
         finally:
             cursor.close()
             pool.putconn(conn)
-        return importPackage.redirect(importPackage.url_for('back_CarouselSetting.backCarouselSetting'))
-    else:
-        try:
-            cursor.execute(
-                """SELECT "title","imgDescript","UploadTime","RemovedTime" FROM "back_Carousel" """)
-            result = cursor.fetchall()
-        except:
-            result = None
-            print('Error')
-        finally:
-            cursor.close()
-            pool.putconn(conn)
-        return importPackage.render_template('後台網頁/back_04_basic_Management/back_01_CarouselSetting/back_CarouselSetting.html', result=result)
+            print(result)
+        return importPackage.render_template('後台網頁/back_04_basic_Management/back_01_CarouselSetting/back_CarouselSetting.html', result=result, Handler=user, DateTime=formatted_time, user_name=user_name)

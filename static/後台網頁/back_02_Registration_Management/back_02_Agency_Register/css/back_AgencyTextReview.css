@@ -4,3 +4,41 @@
     color:#ffffff;
 }
 
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    border: none;
+    box-shadow: none;
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slideIn 1s forwards;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #ffc107;
+    margin-top: 10px;
+    opacity: 0;
+    animation: drawLine 1s forwards;
+    animation-delay: 1s; 
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animation for line drawing */
+@keyframes drawLine {
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}

@@ -1,0 +1,496 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>考生報名新增</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/後台網頁/back_02_Registration_Management/back_01_ExamStudent_Register/css/back_ExamRegisterAppend.css') }}">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.6/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand text-dark fw-bold" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#" data-bs-dismiss="modal">{{user_name}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal" data-bs-dismiss="modal">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <div class="title">一般考生報名設定</div>
+    </div>
+    
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backExamRegister">考生報名維護</a>
+            <a class="flex-sm-fill text-sm-center nav-link bg-warning text-dark fw-bold active" aria-current="page" href="/backExamRegisterAppend">考生報名新增</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backExamRegisterImport">考生報名匯入</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backExamIndex">一般考生報名設定</a>            
+        </nav>
+    </div>
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="navbar-nav mb-2 mb-lg-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backExamIndex">一般考生報名</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSetting">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSearch">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backEnvironmentSetting">系統環境設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSystemSearch">系統登入查詢</a></li>                         
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item fw-bold" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backUnitImage">單元形象維護</a></li>                                                                                                                                                    
+                        </ul>
+                    </li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <div class="progress-container mt-1">
+                    <div class="progress-bar" id="progress-bar"></div>
+                    <div class="step" data-step="1">
+                        <div class="step-number fw-bold">1</div>
+                        <div class="step-label fw-bold">基本資料撰寫</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number fw-bold">2</div>
+                        <div class="step-label fw-bold">考試資訊撰寫</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number fw-bold">3</div>
+                        <div class="step-label fw-bold">資料送出前確認</div>
+                    </div>
+                </div>
+        
+                <table id="table1" class="table table-warning table-hover">
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center fw-bold">基本資料撰寫</td>               
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:20%;">姓名</td>
+                            <td scope="col" class="text-center fw-bold" style="width:30%;">
+                                <input type="text" id="Examinee_Name" class="Examinee_Name form-control" name="Examinee_Name" >
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:20%;">性別</td>
+                            <td scope="col" class="text-center fw-bold" style="width:30%;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Examine_Gender" id="male" value="1">
+                                    <label class="form-check-label" for="male">男</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Examine_Gender" id="female" value="2">
+                                    <label class="form-check-label" for="female">女</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">出生日期</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="date" id="Examinee_BirthDate" class="Examinee_BirthDate form-control" name="Examinee_BirthDate" >
+                            </td>
+                            <td scope="col" class="text-center fw-bold">身分證字號</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="text" id="Examinee_ID" class="Examinee_ID form-control" name="Examinee_ID" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">電話</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="text" id="Examinee_Phone" class="Examinee_Phone form-control" name="Examinee_Phone" >
+                            </td>
+                            <td scope="col" class="text-center fw-bold">手機</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="text" id="Examinee_Cellphone" class="Examinee_Cellphone form-control" name="Examinee_Cellphone" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">教育程度</td>
+                            <td scope="col" class="text-center fw-bold">                        
+                                <select class="form-control" name="Examinee_EducationLevel" id="Examinee_EducationLevel">                            
+                                    <option value="02">學士</option>
+                                    <option value="03">碩士</option>
+                                    <option value="03">博士</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center fw-bold">最高學歷</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <div class="d-flex align-items-center">
+                                    <input type="text" id="Examinee_Education" class="Examinee_Education form-control me-2" name="Examinee_Education" style="width:78%;">
+                                    <a class="btn btn-warning fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#Education">檢視</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">常用信箱</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="email" id="Examinee_CommonlyEmail" class="Examinee_CommonlyEmail form-control" name="Examinee_CommonlyEmail" >
+                            </td>
+                            <td scope="col" class="text-center fw-bold">備用信箱</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="email" id="Examinee_SpareEmail" class="Examinee_SpareEmail form-control" name="Examinee_SpareEmail" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">報名身分</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <select class="form-control" name="Examinee_identify" id="Examinee_identify">                            
+                                    <option value="1">自行申請報名</option>
+                                    <option value="2">薦送機關報名</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center fw-bold">考生機關</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <div class="d-flex align-items-center">
+                                    <input type="text" id="Examinee_Agency" class="Examinee_Agency form-control me-2" name="Examinee_Agency" style="width:78%;">
+                                    <a class="btn btn-warning fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#Agency">檢視</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>  
+                <table id="table2" class="table table-warning table-hober">
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center fw-bold">考試資訊撰寫</td>               
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:20%;">類別</td>
+                            <td scope="col" class="text-center fw-bold" style="width:30%;">
+                                <select class="form-control" name="ExamStyleID" id="ExamStyleID">                            
+                                    <option value="">123</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:20%;">資訊</td>
+                            <td scope="col" class="text-center fw-bold" style="width:30%;">
+                                <select class="form-control" name="ExamTitle" id="ExamTitle">                            
+                                    <option value="">123</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">梯次</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <select class="form-control" name="ExamLadder" id="ExamLadder">                            
+                                    <option value="">123</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center fw-bold">級別</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <select class="form-control" name="ExamLevel" id="ExamLevel">                            
+                                    <option value="">123</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">報名日期</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="date" id ="ExamRegister_Date" class="ExamRegister_Date form-control" name="ExamRegister_Date">
+                            </td>
+                            <td scope="col" class="text-center fw-bold">申請退費</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <select class="form-control" name="ExamPayment_Style" id="ExamPayment_Style">                            
+                                    <option value="0">可申請退費</option>
+                                    <option value="1">不可申請退費</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">申請身心障礙&特殊服務</td>
+                            <td scope="col" class="fw-bold">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="" id="" value="1">
+                                    <label class="form-check-label" for="Yes">是</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="" id="" value="0">
+                                    <label class="form-check-label" for="No">否</label>
+                                </div>
+                            </td>
+                            <td scope="col" class="text-center fw-bold">佐證資料</td>
+                            <td scope="col" class="text-center fw-bold">
+                                <input type="file" name="subData" id="subData">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">身心障礙類別&狀況</td>
+                            <td scope="col" colspan="3" class="fw-bold">
+                                <div class="d-flex align-items-center">
+                                    <input type="text" class ="form-control" name="disability_ID" id="disability_ID" value="" style="width:30%;">
+                                    <a class="btn btn-warning fw-bold" href="#">檢視</a>
+                                </div>                                
+                                <!-- <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">智能障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">視覺障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">聽覺障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">語言障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">肢體障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">情緒行為障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">學習障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">多重障礙
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">自閉症
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">發展遲緩
+                                <input type="checkbox" name="Intellectual_disability" id="Intellectual_disability">其他障礙 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">需協助項目</td>
+                            <td scope="col" colspan="3" class="text-center fw-bold">
+                                <textarea class="form-control helpItem" name="helpItem" id="helpItem" cols="100" rows="5"></textarea>
+                                 <!-- <input type="checkbox" name="helpItem01" id="helpItem01">申請延長考試時間
+                                <input type="checkbox" name="helpItem02" id="helpItem02">提早進場
+                                <input type="checkbox" name="helpItem03" id="helpItem03">安排設有電梯之試場應試
+                                <input type="checkbox" name="helpItemother" id="helpItemother">其他 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">需自行攜帶應試用品</td>
+                            <td scope="col" colspan="3" class="text-center fw-bold">
+                                
+                            </td>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">備註</td>
+                            <td scope="col" colspan="3" class="text-center fw-bold">
+                                <textarea id="" class="form-control" name=""></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="table3" class="table table-warning table-hover">
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center fw-bold">考試資訊撰寫</td>               
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="2" class="text-center fw-bold" style="width:50%;">基本資料</td>
+                            <td scope="col" colspan="2" class="text-center fw-bold" style="width:50%;">考試資訊</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:20%;">姓名</td>
+                            <td scope="col" class="text-center fw-bold" style="width:30%;">
+                                <input type="text" id="Examinee_Name" class="Examinee_Name form-control" name="Examinee_Name" >
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:20%;">類別</td>
+                            <td scope="col" class="text-center fw-bold" style="width:30%;"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">性別</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">資訊</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">出生日期</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">梯次</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">身分證字號</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">級別</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">電話</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">報名日期</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">手機</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">申請退費</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">教育程度</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">申請身心障礙&特殊服務</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">最高學歷</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">身心障礙類別&狀況</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">常用信箱</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">需協助項目</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">備用信箱</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">需自行攜帶應試用品</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">報名身分</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">備註</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold">所屬機關</td>
+                            <td scope="col" class="text-center fw-bold"></td>
+                            <td scope="col" class="text-center fw-bold">資料確認</td>
+                            <td scope="col" class="text-center fw-bold">所有資料都已填寫正確</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="buttons mt-2">
+                    <button onclick="prevStep()">上一個</button>
+                    <button onclick="nextStep()">下一個</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Education" tabindex="-1" aria-labelledby="Education" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="Education">學歷選擇</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-warning table-hover table-bordered">
+                        <tbody>
+                            <tr>
+                                <td scope="col" class="text-center fw-bold" style="width:40%;vertical-align:middle;">區域選擇</td>
+                                <td scope="col" class="text-center fw-bold" style="width:40%;vertical-align:middle;">學校類型</td>
+                                <td scope="col" colspan="2" class="text-center fw-bold" style="width:20%;vertical-align:middle;">功能</td>
+                            </tr>
+                            <form action="back_ExamRegisterAppend_EdccationSearch" method="post">
+                                <tr>
+                                    <td scope="col" class="text-center fw-bold" style="width:30%;vertical-align:middle;">
+                                        <select class="form-control" name="school_areaCode" id="school_areaCode">                            
+                                            <option value="01">北部地區</option>
+                                            <option value="02">中部地區</option>
+                                            <option value="03">南部地區</option>
+                                            <option value="04">東部地區</option>
+                                            <option value="05">離島地區</option>
+                                        </select>
+                                    </td>
+                                    <td scope="col" class="text-center fw-bold" style="width:30%;vertical-align:middle;">
+                                        <select class="form-control" name="school_StyleCode" id="school_StyleCode">                            
+                                            <option value="1">國立普通大學</option>
+                                            <option value="2">國立科技大學</option>
+                                            <option value="3">私立普通大學</option>
+                                            <option value="4">私立科技大學</option>
+                                            <option value="5">市立普通大學</option>
+                                        </select>
+                                    </td>
+                                    <td scope="col" colspan="2" class="text-center fw-bold" style="width:20%;vertical-align:middle;">
+                                        <input type="submit" class="btn btn-warning fw-bold" value="查詢">
+                                        <a class="btn btn-warning fw-bold" href="#">清除</a>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                    <div class="table-responsive" style="max-height:700px; overflow-y: auto;">
+                        <table class="table table-warning table-hover table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td scope="col" colspan="7" class="text-center fw-bold" style="width:20%;vertical-align:middle;">搜尋結果</td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="text-center fw-bold" style="width:20%;vertical-align:middle;">學校名稱</td>
+                                    <td scope="col" class="text-center fw-bold" style="width:20%;vertical-align:middle;">校本部/校區</td>
+                                    <td scope="col" colspan="4" class="text-center fw-bold" style="width:50%;vertical-align:middle;">地址</td>
+                                    <td scope="col" class="text-center fw-bold" style="width:10%;vertical-align:middle;"></td>
+                                </tr>
+                                
+                                    {% if result %}
+                                        {% for item in result%}
+                                        <tr>
+                                            <td scope="col" class="text-center fw-bold" style="width:20%;vertical-align:middle;">{{item[0]}}</td>
+                                            <td scope="col" class="text-center fw-bold" style="width:20%;vertical-align:middle;">{{item[1]}}</td>
+                                            <td scope="col" class="text-center fw-bold" style="width:10%;vertical-align:middle;">{{item[2]}}</td>
+                                            <td scope="col" class="text-center fw-bold" style="width:10%;vertical-align:middle;">{{item[3]}}</td>
+                                            <td scope="col" class="text-center fw-bold" style="width:10%;vertical-align:middle;">{{item[4]}}</td>
+                                            <td scope="col" class="text-center fw-bold" style="width:20%;vertical-align:middle;">{{item[5]}}</td>
+                                            <td scope="col" class="text-center fw-bold" style="width:10%;vertical-align:middle;">
+                                                <a class="btn btn-warning fw-bold" href="#" data-bs-dismiss="modal">選取</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutModalLabel">登出系統</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要登出帳號嗎</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#LogoutResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="LogoutResultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LogoutResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutResultModalLabel">帳號登出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">帳號已登出</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="/backlogut">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='後台網頁/back_02_Registration_Management/back_01_ExamStudent_Register/javascript/back_ExamRegisterAppend.js') }}"></script>
+    <script src="{{ url_for('static', filename='lang/zh_TW.js') }}"></script>
+</body>
+</html>

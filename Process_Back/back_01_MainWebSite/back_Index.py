@@ -8,11 +8,17 @@ def backindex():
     user_id = importPackage.session.get('user_id')
     user_name = importPackage.session.get('user_name')
     user_email = importPackage.session.get('user_email')
+
+    exam_Registration = importPackage.session.get('exam_Registration')
+    agency_Registration = importPackage.session.get('agency_Registration')
+
     system_accountAdd = importPackage.session.get('system_accountAdd')
     system_accountModify = importPackage.session.get('system_accountModify')
+    system_passwordReset = importPackage.session.get('system_passwordReset')
     system_Environment = importPackage.session.get('system_Environment')
     system_SMTPSetting = importPackage.session.get('system_SMTPSetting')
     system_SystemSearch = importPackage.session.get('system_SystemSearch')
+
     basic_CarouselSetting = importPackage.session.get('basic_CarouselSetting')
     basic_FastLinkSetting = importPackage.session.get('basic_FastLinkSetting')
     basic_NewSetting = importPackage.session.get('basic_NewSetting')
@@ -26,8 +32,11 @@ def backindex():
                                          user_id=user_id,
                                          user_name=user_name,
                                          user_email=user_email,
+                                         exam_Registration=exam_Registration,
+                                         agency_Registration=agency_Registration,
                                          system_accountAdd=system_accountAdd,
                                          system_accountModify=system_accountModify,
+                                         system_passwordReset=system_passwordReset,
                                          system_Environment=system_Environment,
                                          system_SMTPSetting=system_SMTPSetting,
                                          system_SystemSearch=system_SystemSearch,
@@ -38,6 +47,8 @@ def backindex():
                                          basic_NoticeSetting=basic_NoticeSetting,
                                          basic_PaymentSetting=basic_PaymentSetting,
                                          basic_UnitImageSetting=basic_UnitImageSetting)
+
+
 @backIndex.route('/backlogut')
 def backlogout():
     importPackage.session.pop('username', None)

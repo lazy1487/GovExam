@@ -18,7 +18,7 @@ def backCarouselImageShow():
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                """ SELECT "Carousel_compute" FROM "back_Carousel" where "title"=%s """, (Title,))
+                """ SELECT "Carousel_compute","Carousel_cellphone" FROM "back_Carousel" where "title"=%s """, (Title,))
             result = cursor.fetchall()
 
     except Exception as e:

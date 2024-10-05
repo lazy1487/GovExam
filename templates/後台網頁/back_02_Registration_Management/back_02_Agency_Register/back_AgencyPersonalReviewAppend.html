@@ -1,0 +1,232 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>薦送考生資料新增</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/後台網頁/back_02_Registration_Management/back_02_Agency_Register/css/back_AgencyPersonalReviewAppend.css') }}">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand text-dark fw-bold" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item"></li>
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#" data-bs-dismiss="modal">{{user_name}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal" data-bs-dismiss="modal">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="title">機關薦送報名設定</div>
+    </div>
+
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">            
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backAgencyPersonalReview">薦送考生維護</a>
+            <a class="flex-sm-fill text-sm-center nav-link bg-warning text-dark fw-bold active" aria-current="page" href="/backAgencyPersonalReviewAppend">薦送考生新增</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backAgencyPersonalReviewImport">薦送考生匯入</a>   
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backAgencyInfoIndex">機關薦送報名</a>               
+        </nav>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="navbar-nav mb-2 mb-lg-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backExamIndex">一般考生報名</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSetting">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSearch">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backEnvironmentSetting">系統環境設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSystemSearch">系統登入查詢</a></li>                         
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item fw-bold" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backUnitImage">單元形象維護</a></li>                                                                                                                                                    
+                        </ul>
+                    </li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-warning table-hover"> 
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center fw-bold">薦送人員資料新增</td>       
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%">薦送人員</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control fw-bold" name="AgencyNameId" id="AgencyNameId" style="width:100%">
+                                    <option value selected>請選擇類別</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%">薦送考生機關全銜</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control fw-bold" name="AgencyID" id="AgencyID" style="width:100%">
+                                    <option value selected>請選擇機關</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">薦送考生姓名</td>
+                            <td scope="col" style="width:35%">
+                                <input type="text" class="form-control fw-bold" name="AgencyExamineeName" id="AgencyExamineeName" style="width:100%;">
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">薦送考生身分證字號</td>
+                            <td scope="col" style="width:35%">
+                                <input type="text" class="form-control fw-bold" name="AgencyExamineeID" id="AgencyExamineeID" style="width:100%;">
+                            </td>
+                        </tr>                
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">薦送考生性別</td>
+                            <td scope="col" style="width:35%">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="MaleRadioDefault" id="MaleRadioDefault">
+                                    <label class="form-check-label" for="MaleRadioDefault">男</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="FemaleRadioDefault" id="FemaleRadioDefault" checked>
+                                    <label class="form-check-label" for="FemaleRadioDefault">女</label>
+                                </div>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">薦送考生生日</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control " name="AgencyExamineeBirthDate">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">日間電話</td>
+                            <td scope="col" style="width:35%">
+                                <input type="tel" class="form-control" name="DaytimePhone" id="DaytimePhone" style="width:100%;">
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">分機號碼</td>
+                            <td scope="col" style="width:35%">
+                                <input type="tel" class="form-control" name="ExtensionNumber" id="ExtensionNumber" style="width:100%;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">行動電話</td>
+                            <td scope="col" style="width:35%">
+                                <input type="tel" class="form-control" name="TelPhone" id="TelPhone" style="width:100%;">
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">email</td>
+                            <td scope="col" style="width:35%">
+                                <input type="email" class="form-control" name="AgencyExamineeEmail" id="AgencyExamineeEmail" style="width:100%;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">報考考試類別</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control fw-bold" name="ExamStyleID" id="ExamStyleID" style="width:100%">
+                                    <option value selected>請選擇考試類別</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">報考考試</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control fw-bold" name="ExamID" id="ExamID" style="width:100%">
+                                    <option value selected>請選擇考試</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">報考梯次</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control fw-bold" name="ExamLadderID" id="ExamLadderID" style="width:100%">
+                                    <option value selected>請選擇</option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">考試級別</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control" name="ExamLevelID" id="ExamLevelID" style="width:100%">
+                                    <option value selected>請選擇</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center fw-bold">日期時間設定</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%">建立人員</td>
+                            <td scope="col" class="text-center fw-bold" style="width:35%">{{user_name}}</td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%">建立日期</td>
+                            <td scope="col" class="text-center fw-bold" style="width:35%">{{DateTime}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center">
+                                <input type="submit" class="btn btn-warning fw-bold" value="確定送出">
+                                <input type="button" class="btn btn-warning fw-bold" value="重新設定">
+                                <a class="btn btn-warning fw-bold" href="#" onclick="history.back()">回上一頁</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
+    
+    <div class="modal fade" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutModalLabel">登出系統</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要登出帳號嗎</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#LogoutResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="LogoutResultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LogoutResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutResultModalLabel">帳號登出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">帳號已登出</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="/backlogut">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

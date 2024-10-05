@@ -4,3 +4,67 @@
     color:#ffffff;
 }
 
+#examInfoPanel, #examInfoFilp,#examRegisterPanel, #examRegisterFlip,
+#examContentPanel, #examContentFlip,#examDatePanel, #examDateFlip {
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+  
+#examInfoPanel,#examRegisterPanel,#examContentPanel,#examDatePanel {
+    padding: 50px;
+    display: none;
+}
+
+#examInfoPanel,#examRegisterPanel,#examDatePanel{      
+    padding:10px; 
+    width: 100%;
+    height: 100%;
+}
+.table {    
+    width: 100%;
+    height: 100%;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    border: none;
+    box-shadow: none;
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slideIn 1s forwards;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #ffc107;
+    margin-top: 10px;
+    opacity: 0;
+    animation: drawLine 1s forwards;
+    animation-delay: 1s; 
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes drawLine {
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+#mainContainer{
+    margin-top: 30px;
+}

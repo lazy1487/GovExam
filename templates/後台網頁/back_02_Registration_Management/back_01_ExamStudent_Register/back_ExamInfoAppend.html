@@ -1,0 +1,512 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>考試資訊新增</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='後台網頁/back_02_Registration_Management/back_01_ExamStudent_Register/css/Back_ExamInfoAppend.css') }}">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.6/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand text-dark fw-bold" href="/index:8887">政府考試管理系統</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backExamIndex">一般考生報名</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backAgencyInfoIndex">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backAccountSetting">帳號權限設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backEnvironmentSetting">系統環境設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSystemSearch">系統登入查詢</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark fw-bold" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item fw-bold" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backUnitImage">單元形象維護</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal" data-bs-dismiss="modal">登出</a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <nav class="nav nav-pills flex-column flex-sm-row">                    
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoSetting">考試資訊列表</a>
+            <a class="flex-sm-fill text-sm-center nav-link bg-warning text-dark fw-bold active" aria-current="page" href="/backExamInfoAppend">考試資訊新增</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoSort">考試資訊排序</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold"  href="/backExamInfoImport">考試資訊匯入</a>
+            <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backExamIndex">一般考生報名設定</a>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="navbar-nav mb-2 mb-lg-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backExamIndex">一般考生報名</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSetting">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSearch">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backEnvironmentSetting">系統環境設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSystemSearch">系統登入查詢</a></li>                         
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item fw-bold" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backUnitImage">單元形象維護</a></li>                                                                                                                                                    
+                        </ul>
+                    </li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-warning table-hover"> 
+                    <tbody>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center fw-bold">考試資訊搜尋</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align: middle;">所屬類別</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control" name="inputExamStyleID" id="inputExamStyleID" style="width:100%">
+                                    <option value selected>請選擇類別</option>
+                                    {% if result %}
+                                        {% for item in result  %}
+                                            <option value={{item[0]}}>{{item[1]}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                                <small id="errorTextID" class="error-text d-none" style="color: red;">請選擇所屬類別</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align: middle;">標題</td>
+                            <td scope="col" style="width:35%">
+                                <input type="text" class="form-control" name="inputExamTitle" id="inputExamTitle">        
+                                <small id="errorText" class="error-text d-none" style="color: red;">請輸入標題</small>                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align: middle;">顯示於前台</td>
+                            <td scope="col" style="width:35%">
+                                <a class="btn btn-secondary fw-bold" href="#" name="showdesk" id="showdesk" onclick="toggleButtonshowdesk()">開啟</a>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align: middle;">開放報名</td>
+                            <td scope="col" style="width:35%">
+                                <a class="btn btn-secondary fw-bold" href="#" name="openRegister" id="openRegister" onclick="toggleButtonopenRegister()">開啟</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align: middle;">梯次</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control" name="ladder" id="ladder" style="width:100%">
+                                    <option value selected>請選擇梯次</option>
+                                    <option value="1">第一梯次</option>
+                                    <option value="2">第二梯次</option>
+                                    <option value="3">第三梯次</option>
+                                    <option value="4">第四梯次</option>
+                                </select>
+                                <small id="ladderErrorText" class="error-text d-none" style="color: red;">請選擇梯次</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align: middle;">級別</td>
+                            <td scope="col" style="width:35%">
+                                <select class="form-control" name="level" id="level" style="width:100%">
+                                    <option value selected>請選擇級別</option>
+                                    <option value="1">基礎級</option>
+                                    <option value="2">進階級</option>
+                                    <option value="3">專業級</option>
+                                </select>
+                                <small id="levelErrorText" class="error-text d-none" style="color: red;">請選擇級別</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:15%;vertical-align:middle;">報名人數設定</td>
+                            <td scope="col" colspan="3" class="fw-bold" style="width:85%;vertical-align: middle; text-align: center;">
+                                <table class="table table-bordered" style="margin: 0 auto; display: inline-table;">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-center" style="width:10%;vertical-align:middle;">地區</th>
+                                            <th class="text-center" style="width:16%;vertical-align:middle;">北部地區</th>
+                                            <th class="text-center" style="width:16%;vertical-align:middle;">中部地區</th>
+                                            <th class="text-center" style="width:16%;vertical-align:middle;">南部地區</th>
+                                            <th class="text-center" style="width:16%;vertical-align:middle;">東部地區</th>
+                                            <th class="text-center" style="width:16%;vertical-align:middle;">離島地區</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" style="vertical-align:middle;">總報名人數</td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="registerCount_N" id="registerCount_N">
+                                                <small id="registerCount_N_ErrorText" class="error-text d-none" style="color: red;">請輸入人數</small>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="registerCount_C" id="registerCount_C">
+                                                <small id="registerCount_C_ErrorText" class="error-text d-none" style="color: red;">請輸入人數</small>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="registerCount_S" id="registerCount_S">
+                                                <small id="registerCount_S_ErrorText" class="error-text d-none" style="color: red;">請輸入人數</small>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="registerCount_E" id="registerCount_E">
+                                                <small id="registerCount_E_ErrorText" class="error-text d-none" style="color: red;">請輸入人數</small>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="registerCount_I" id="registerCount_I">
+                                                <small id="registerCount_I_ErrorText" class="error-text d-none" style="color: red;">請輸入人數</small>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" style="vertical-align:middle;">已報名人數</td>
+                                            <td class="text-center" name="registerCount_AN" id="registerCount_AN" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" name="registerCount_AC" id="registerCount_AC" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" name="registerCount_AS" id="registerCount_AS" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" name="registerCount_AE" id="registerCount_AE" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" name="registerCount_AI" id="registerCount_AI" style="vertical-align:middle;">----------</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" style="vertical-align:middle;">人數狀態</td>
+                                            <td class="text-center" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" style="vertical-align:middle;">----------</td>
+                                            <td class="text-center" style="vertical-align:middle;">----------</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:15%;vertical-align: middle;">報名費用</td>
+                            <td scope="col" colspan="3" class="text-center" style="width:85%;vertical-align: middle; text-align: center;">
+                                <table class="table table-bordered" style="margin: 0 auto; display: inline-table;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center fw-bold" style="width:20%;vertical-align:middle;">一般考生費用</td>
+                                            <td class="text-center fw-bold" style="width:30%;vertical-align:middle;">
+                                                <input type="number" class="form-control" name="generalPayment" id="generalPayment">
+                                                <small id="generalPayment_ErrorText" class="error-text d-none" style="color: red;">請輸入一般考生費用</small>
+                                            </td>
+                                            <td class="text-center fw-bold" style="width:20%;vertical-align:middle;">薦送考生費用</td>
+                                            <td class="text-center fw-bold" style="width:30%;vertical-align:middle;">
+                                                <input type="number" class="form-control" name="agencyPayment" id="agencyPayment">
+                                                <small id="agencyPayment_ErrorText" class="error-text d-none" style="color: red;">請輸入薦送考生費用</small>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:15%;vertical-align: middle;">年齡限制</td>
+                            <td scope="col" colspan="3" style="width:85%">
+                                <div style="display: flex; align-items: center;">
+                                    <input type="date" class="form-control" name="ageLimit" id="ageLimit" min="2024-01-01" max="2099-12-31" style="width: 40%; margin-right: 10px;">
+                                    <small id="ageLimit_ErrorText" class="error-text d-none" style="color: red;">請輸入年齡</small>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:15%;vertical-align:middle;">考試資訊內文</td>
+                            <td scope="col" colspan="3" style="width:85%">
+                                <textarea class="form-control" name="examInfoContent" id="examInfoContent" cols="100" rows="10">請輸入考試資訊內文</textarea>
+                                <small id="examInfoContent_ErrorText" class="error-text d-none" style="color: red;">請輸入考試資訊內文</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:15%;vertical-align:middle;">報名填寫內文</td>
+                            <td scope="col" colspan="3" style="width:85%">
+                                <textarea class="form-control" name="registerContent" id="registerContent" cols="100" rows="10">請輸入報名填寫內文</textarea>
+                                <small id="registerContent_ErrorText" class="error-text d-none" style="color: red;">請輸入報名填寫內文</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center fw-bold">日期時間設定</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:15%;vertical-align:middle;">考試日期</td>
+                            <td scope="col" colspan="3" style="width:85%">
+                                <input type="date" class="form-control" name="examDate" id="examDate" min="2024-01-01" max="2099-12-31" style="width:40%">
+                                <small id="examDate_ErrorText" class="error-text d-none" style="color: red;">請輸入考試日期</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">文章上架日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="articleUpdateTime" id="articleUpdateTime" min="2024-01-01" max="2099-12-31">
+                                <small id="articleUpdateTime_ErrorText" class="error-text d-none" style="color: red;">請輸入文章上架日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">文章下架日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="articleRemoveTime" id="articleRemoveTime" min="2024-01-01" max="2099-12-31">
+                                <small id="articleRemoveTime_ErrorText" class="error-text d-none" style="color: red;">請輸入文章下架日期</small>
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">一般報名開始日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="examRegistrationStartDate" id="examRegistrationStartDate" min="2024-01-01" max="2099-12-31">
+                                <small id="examRegistrationStartDate_ErrorText" class="error-text d-none" style="color: red;">請輸入一般報名開始日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">一般報名結束日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="examRegistrationEndDate" id="examRegistrationEndDate" min="2024-01-01" max="2099-12-31">
+                                <small id="examRegistrationEndtDate_ErrorText" class="error-text d-none" style="color: red;">請輸入一般報名開始日期</small>
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">機關報名開始日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="agencyRegistrationStartDate" id="agencyRegistrationStartDate" min="2024-01-01" max="2099-12-31">
+                                <small id="agencyRegistrationStartDate_ErrorText" class="error-text d-none" style="color: red;">請輸入機關報名開始日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">機關報名結束日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="agencyRegistrationEndDate" id="agencyRegistrationEndDate" min="2024-01-01" max="2099-12-31">
+                                <small id="agencyRegistrationEndDate_ErrorText" class="error-text d-none" style="color: red;">請輸入機關報名結束日期</small>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">一般報名繳費開始日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="examPaymentStartDate" id="examPaymentStartDate" min="2024-01-01" max="2099-12-31">
+                                <small id="examPaymentStartDate_ErrorText" class="error-text d-none" style="color: red;">請輸入一般報名繳費開始日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">一般報名繳費結束日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="examPaymentEndDate" id="examPaymentEndDate" min="2024-01-01" max="2099-12-31">
+                                <small id="examPaymentEndDate_ErrorText" class="error-text d-none" style="color: red;">請輸入一般報名繳費結束日期</small>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">薦送報名繳費開始日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="agencyPaymentStartDate" id="agencyPaymentStartDate" min="2024-01-01" max="2099-12-31">
+                                <small id="agencyPaymentStartDate_ErrorText" class="error-text d-none" style="color: red;">請輸入薦送報名繳費開始日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">薦送報名繳費結束日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="agencyPaymentEndDate" id="agencyPaymentEndDate" min="2024-01-01" max="2099-12-31">
+                                <small id="agencyPaymentEndDate_ErrorText" class="error-text d-none" style="color: red;">請輸入薦送報名繳費結束日期</small>
+                            </td>
+                        </tr>            
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">考試通知單下載起始日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="examNoticeDownloadStartDate" id="examNoticeDownloadStartDate" min="2024-01-01" max="2099-12-31">
+                                <small id="examNoticeDownloadStartDate_ErrorText" class="error-text d-none" style="color: red;">請輸入考試通知單下載起始日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">考試通知單下載結束日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="examNoticeDownloadEndDate" id="examNoticeDownloadEndDate" min="2024-01-01" max="2099-12-31">
+                                <small id="examNoticeDownloadEndDate_ErrorText" class="error-text d-none" style="color: red;">請輸入考試通知單下載結束日期</small>
+                            </td>                    
+                        </tr>
+        
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">成績查詢開始日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="scoreSearchStartDate" id="scoreSearchStartDate" min="2024-01-01" max="2099-12-31">
+                                <small id="scoreSearchStartDate_ErrorText" class="error-text d-none" style="color: red;">請輸入成績查詢開始日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">成績查詢結束日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="scoreSearchEndDate" id="scoreSearchEndDate" min="2024-01-01" max="2099-12-31">
+                                <small id="scoreSearchEndDate_ErrorText" class="error-text d-none" style="color: red;">請輸入成績查詢結束日期</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">證書下載開始日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="certificateDownloadStartDate" id="certificateDownloadStartDate" min="2024-01-01" max="2099-12-31" >
+                                <small id="certificateDownloadStartDate_ErrorText" class="error-text d-none" style="color: red;">請輸入證書下載開始日期</small>
+                            </td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%;vertical-align:middle;">證書下載結束日期</td>
+                            <td scope="col" style="width:35%">
+                                <input type="date" class="form-control" name="certificateDownloadEndDate" id="certificateDownloadEndDate" min="2024-01-01" max="2099-12-31">
+                                <small id="certificateDownloadEndDate_ErrorText" class="error-text d-none">請輸入證書下載結束日期</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" colspan="4" class="text-center">考試建立資訊</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" class="text-center fw-bold" style="width:15%">建立人員</td>
+                            <td scope="col" class="text-center fw-bold" style="width:35%">{{Handler}}</td>
+                            <td scope="col" class="text-center fw-bold" style="width:15%">建立日期</td>
+                            <td scope="col" class="text-center fw-bold" style="width:35%">{{DateTime}}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="4" class="text-center">
+                                <a class="btn btn-warning fw-bold" href="#" id="submitBtn">確定送出</a>
+                                <!-- <a class="btn btn-warning fw-bold" href="#" id="submitBtn" data-bs-toggle="modal" data-bs-target="#SaveModal">確定送出</a> -->
+                                <a class="btn btn-warning fw-bold" href="#" id="resetButton">重新設定</a>
+                                <a class="btn btn-warning fw-bold" href="#" onclick="history.back()">回上一頁</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
+    
+    <!-- ==========新增訊息提示========== -->
+    <div class="modal fade" id="SaveModal" tabindex="-1" aria-labelledby="SaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SaveModalLabel">新增資料</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要新增資料嗎？</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#SaveResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="SaveResultModal" tabindex="-1" aria-labelledby="SaveResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteResultlModalLabel">資料新增訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">考試已新增</div>
+                <div class="modal-footer">
+                    <form action="/backExamInfoAppend" method="POST" style="display: inline;">
+                        <!-- ========== 所屬類別、標題、顯示於前台、開放報名、梯次、級別 ==========-->
+                        <input type="text" name="hiddeninputExamStyleID" id="hiddeninputExamStyleID">
+                        <input type="text" name="hiddeninputExamTitle" id="hiddeninputExamTitle">
+                        <input type="text" name="hiddenshowdesk" id="hiddenshowdesk" value="N">
+                        <input type="text" name="hiddenopenRegister" id="hiddenopenRegister" value="N">
+                        <input type="text" name="hiddenladder" id="hiddenladder">
+                        <input type="text" name="hiddenlevel" id="hiddenlevel">                        
+                        <!-- ========== 北部地區、中部地區、南部地區、東部地區、離島地區 ==========-->
+                        <input type="text" name="hiddenregisterCount_N" id="hiddenregisterCount_N">
+                        <input type="text" name="hiddenregisterCount_C" id="hiddenregisterCount_C">
+                        <input type="text" name="hiddenregisterCount_S" id="hiddenregisterCount_S">
+                        <input type="text" name="hiddenregisterCount_E" id="hiddenregisterCount_E">
+                        <input type="text" name="hiddenregisterCount_I" id="hiddenregisterCount_I">
+                        <!-- ========== 一般考生費用、薦送考生費用、年齡限制 ==========-->
+                        <input type="text" name="hiddengeneralPayment" id="hiddengeneralPayment">
+                        <input type="text" name="hiddenagencyPayment" id="hiddenagencyPayment">
+                        <input type="text" name="hiddenageLimit" id="hiddenageLimit">
+                        <!-- ========== 考試資訊內文、報名填寫內文、考試日期 ==========-->
+                        <input type="text" name="hiddenexamInfoContent" id="hiddenexamInfoContent">                    
+                        <input type="text" name="hiddenregisterContent" id="hiddenregisterContent">
+                        <input type="text" name="hiddenexamDate" id="hiddenexamDate">
+                        <!-- ========== 文章上架時間、文章下架時間 ==========-->
+                        <input type="text" name="hiddenarticleUpdateTime" id="hiddenarticleUpdateTime">
+                        <input type="text" name="hiddenarticleRemoveTime" id="hiddenarticleRemoveTime">
+                        <!-- ========== 一般報名開始日期、一般報名結束日期 ==========-->
+                        <input type="text" name="hiddenexamRegistrationStartDate" id="hiddenexamRegistrationStartDate">
+                        <input type="text" name="hiddenexamRegistrationEndDate" id="hiddenexamRegistrationEndDate">
+                        <!-- ========== 機關報名開始日期、機關報名結束日期 ==========-->
+                        <input type="text" name="hiddenagencyRegistrationStartDate" id="hiddenagencyRegistrationStartDate">
+                        <input type="text" name="hiddenagencyRegistrationEndDate" id="hiddenagencyRegistrationEndDate">
+                        <!-- ========== 一般報名繳費開始日期、一般報名繳費結束日期 ==========-->
+                        <input type="text" name="hiddenexamPaymentStartDate" id="hiddenexamPaymentStartDate">
+                        <input type="text" name="hiddenexamPaymentEndDate" id="hiddenexamPaymentEndDate">
+                        <!-- ========== 薦送報名繳費開始日期、薦送報名繳費結束日期 ==========-->
+                        <input type="text" name="hiddenagencyPaymentStartDate" id="hiddenagencyPaymentStartDate">
+                        <input type="text" name="hiddenagencyPaymentEndDate" id="hiddenagencyPaymentEndDate">
+                        <!-- ========== 考試通知單下載起始日期、考試通知單下載結束日期 ==========-->
+                        <input type="text" name="hiddenexamNoticeDownloadStartDate" id="hiddenexamNoticeDownloadStartDate">
+                        <input type="text" name="hiddenexamNoticeDownloadEndDate" id="hiddenexamNoticeDownloadEndDate">
+                        <!-- ========== 成績查詢起始日期、成績查詢結束日期 ==========-->
+                        <input type="text" name="hiddenscoreSearchStartDate" id="hiddenscoreSearchStartDate">
+                        <input type="text" name="hiddenscoreSearchEndDate" id="hiddenscoreSearchEndDate">
+                        <!-- ========== 證書下載起始日期、證書下載結束日期 ==========-->
+                        <input type="text" name="hiddencertificateDownloadStartDate" id="hiddencertificateDownloadStartDate">
+                        <input type="text" name="hiddencertificateDownloadEndDate" id="hiddencertificateDownloadEndDate">                        
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SaveResultModal" data-bs-dismiss="modal">關閉</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ==========登出帳號訊息提示========== -->
+    <div class="modal fade" id="SaveModal" tabindex="-1" aria-labelledby="SaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SaveModalLabel">新增資料</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要新增資料嗎？</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#SaveResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="LogoutResultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LogoutResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutResultModalLabel">帳號登出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">帳號已登出</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="/backlogut">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='後台網頁/back_02_Registration_Management/back_01_ExamStudent_Register/javascript/back_ExamInfoAppend.js') }}"></script>
+    <script src="{{ url_for('static', filename='lang/zh_TW.js') }}"></script>
+</body>
+</html>

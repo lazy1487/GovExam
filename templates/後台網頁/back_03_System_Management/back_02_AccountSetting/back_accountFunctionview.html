@@ -1,0 +1,112 @@
+{% include '共用網頁/publicUseHeader.html' %}
+    <title>帳號新增</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='後台網頁/back_03_System_Management/back_02_AccountSetting/css/back_accountFunctinoView.css') }}">      
+      
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <div class="container mt-5">
+        <table class="table table-info table-striped table-hover">
+            <tr>
+                <td scope="col" colspan="4" class="text-center fw-bold">帳號權限功能說明</td>                
+            </tr>
+            <tr>
+                <td scope="col" class="text-center fw-bold">功能名稱</td>
+                <td scope="col" colspan="2" class="text-center fw-bold">功能說明</td>
+                <td scope="col" class="text-center fw-bold">使用狀態</td>
+            </tr>
+            <tr>
+                <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">帳號新增</td>
+                <td scope="col" colspan="2" class="text-center fw-bold" style="vertical-align:middle;">
+                    <div id="flip">
+                        功能說明
+                    </div>
+                    <div id="panel">
+                         開啟帳號新增功能，讓特殊使用者擁有此功能
+                    </div>
+                </td>
+                <td scope="col" class="text-center fw-bold">
+                    <a class="btn btn-secondary" href="javascript:void(0);" id="toggleButtonAdd">啟用</a>
+                </td>
+            </tr>
+            <tr>
+                <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">帳號查詢</td>
+                <td scope="col" colspan="2" class="text-center fw-bold" style="vertical-align:middle;">
+                    <div id="flip2">
+                        功能說明
+                    </div>
+                    <div id="panel2">
+                        讓特殊使用者擁有此功能可查詢帳號功能權限
+                    </div>
+                </td>
+                <td scope="col" class="text-center fw-bold">
+                    <a class="btn btn-secondary" href="javascript:void(0);" id="toggleButtonSearch">啟用</a>
+                </td>
+            </tr>
+            <tr>
+                <td scope="col" class="text-center fw-bold" style="vertical-align:middle;">密碼重設</td>
+                <td scope="col" colspan="2" class="text-center fw-bold" style="vertical-align:middle;">
+                    <div id="flip3">
+                        功能說明
+                    </div>
+                    <div id="panel3">
+                        忘記密碼或依規定重新設定密碼
+                    </div>
+                </td>
+                <td scope="col" class="text-center fw-bold">
+                    <a class="btn btn-secondary" href="javascript:void(0);" id="toggleButtonReset">啟用</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center fw-bold">資料建立人員</td>
+                <td class="text-center fw-bold">{{Handler}}</td>
+                <td class="text-center fw-bold">資料建立日期</td>
+                <td class="text-center fw-bold">{{DateTime}}</td>
+            </tr>
+            <tr>
+                <td scope="col" colspan="4" class="text-center" style="vertical-align:middle;">                    
+                    <a class="btn btn-info fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#SaveModal">送出資料</a>
+                    <a class="btn btn-info fw-bold" href="javascript:void(0);" onclick="resetForm();">重新設定</a>
+                    <a class="btn btn-info fw-bold" href="javascript:void(0);" onclick="closeWindow();">關閉畫面</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="modal fade" id="SaveModal" tabindex="-1" aria-labelledby="SaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SaveModalLabel">資料送出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定送出資料嗎</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#SaveResultModal" data-bs-dismiss="modal">刪除</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="SaveResultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SaveResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SaveResultModalLabel">資料送出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">資料已送出</div>
+                <div class="modal-footer">
+                    <input type="hidden" name="hiddenSubAccountAdd" id="hiddenSubAccountAdd" value="N">
+                    <input type="hidden" name="hiddenSubAccountSearch" id="hiddenSubAccountSearch" value="N">
+                    <input type="hidden" name="hiddenSubPasswordReset" id="hiddenSubPasswordReset" value="N">
+                    <a class="btn btn-primary" href="#" onclick="passValuesAndClose();">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='後台網頁/back_03_System_Management/back_02_AccountSetting/javascript/back_accountFunctionView.js') }}"></script>    
+</body>
+</html>

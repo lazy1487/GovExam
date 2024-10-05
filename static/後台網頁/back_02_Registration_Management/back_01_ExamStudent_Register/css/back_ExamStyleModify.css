@@ -1,0 +1,10 @@
+.btn-warning:hover {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+    color:#ffffff;
+  }
+
+.error-text {
+    color: red;
+    font-size: 0.875rem; /* Adjust font size as needed */
+}

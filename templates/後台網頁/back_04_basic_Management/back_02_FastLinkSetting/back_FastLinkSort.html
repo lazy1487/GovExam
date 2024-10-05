@@ -1,5 +1,4 @@
 {% include '共用網頁/publicUseHeader.html' %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <title>快速連結排序</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/後台網頁/back_04_basic_Management/back_02_FastLinkSetting/css/back_FastLinkSort.css') }}">
 </head>
@@ -7,53 +6,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/index:8887">政府考試管理系統</a>
+            <a class="navbar-brand text-dark fw-bold" href="/index:8887">政府考試管理系統</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-1 align-items-center" style="margin-right: 10px;">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            報名管理模組
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                          <li><a class="dropdown-item" href="/backExamRegister">一般考生報名</a></li>
-                          <li><a class="dropdown-item" href="/backAgencyInfo">機關薦送報名</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            系統管理模組
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <li><a class="dropdown-item" href="/backAccountSetting">帳號權限設定</a></li>
-                            <li><a class="dropdown-item" href="/backEnvironmentSetting">系統環境設定</a></li>
-                            <li><a class="dropdown-item" href="/backSMTPSetting">SMTP設定</a></li>
-                            <li><a class="dropdown-item" href="/backSystemSearch">系統登入查詢</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            基本管理模組
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <li><a class="dropdown-item" href="/backCarouselSetting">輪播圖維護</a></li>
-                            <li><a class="dropdown-item" href="/backfastLinkSetting">快速連結維護</a></li>
-                            <li><a class="dropdown-item" href="/backNewsSetting">最新消息維護</a></li>
-                            <li><a class="dropdown-item" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
-                            <li><a class="dropdown-item" href="/backNoticeSetting">注意事項維護</a></li>
-                            <li><a class="dropdown-item" href="/backPaymentSetting">付款提示維護</a></li>
-                            <li><a class="dropdown-item" href="/backUnitImage">單元形象維護</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#" data-bs-dismiss="modal">{{user_name}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/backlogut">登出</a>
+                        <a class="nav-link text-dark fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal" data-bs-dismiss="modal">登出</a>
                     </li>
                 </ul>            
             </div>
         </div>
     </nav>
+    
+    <div class="container mt-5">
+        <div class="title">快速連結排序</div>
+    </div>
+
     <div class="container mt-5">
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link text-dark fw-bold" href="/backfastLinkSetting">快速連結列表</a>
@@ -61,54 +34,124 @@
         </nav>
     </div>
 
-    <div class="container mt-5">
-        <table class="table table-info table-striped table-hover">
-            <thead>
-                <tr>
-                    <th scope="col" colspan="4" class="text-center">快速連結排序</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="col" colspan="1" class="text-center fw-bold" style="vertical-align:middle;">標題列表</td>
-                    <td scope="col" colspan="3">
-                        <select class="form-control" name="selectMenu" id="selectMenu" size="10">
-                            {% if result %}
-                                {% for item in result %}
-                                    <option value="{{ loop.index }}">{{ item[0] }}</option>
-                                {% endfor %}                           
-                            {% endif %}                            
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td scope="col" colspan="1" class="text-center fw-bold" style="vertical-align:middle;">功能</td>
-                    <td scope="col" colspan="3" style="vertical-align:middle;">
-                        <input type="button" class="btn btn-info fw-bold" id="moveUpButton" value="上移">
-                        <input type="button" class="btn btn-info fw-bold" id="moveDownButton" value="下移">
-                        <input type="button" class="btn btn-info fw-bold" id="moveToTopButton" value="置頂">
-                        <input type="button" class="btn btn-info fw-bold" id="moveToBottomButton" value="置底">
-                    </td>  
-                </tr>
-                <tr>
-                    <th scope="col" colspan="4" class="text-center">修改資訊</th>
-                </tr>
-                <tr>
-                    <td scope="col" colspan="1" class="text-center fw-bold" style="width:20%;vertical-align:middle;">修改人員</td>
-                    <td scope="col" colspan="1" class="text-center fw-bold" style="width:30%;vertical-align:middle;">{{Handler}}</td>
-                    <td scope="col" colspan="1" class="text-center fw-bold" style="width:20%;vertical-align:middle;">修改日期</td>
-                    <td scope="col" colspan="1" class="text-center fw-bold" style="width:30%;vertical-align:middle;">{{DateTime}}</td>
-                </tr>
-                <tr >
-                    <td scope="col" colspan="4" class="text-center">
-                        <input type="submit" class="btn btn-info fw-bold" value="儲存資料">
-                        <input type="submit" class="btn btn-info fw-bold" value="重新設定">
-                    </td>
-                </tr>
-                
-            </tbody>
-        </table>
+    <div class="container mt-5" id=mainContainer>
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="navbar-nav mb-2 mb-lg-1">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            報名管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item fw-bold" href="/backExamIndex">一般考生報名</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backAgencyInfo">機關薦送報名</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            系統管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <li><a class="dropdown-item fw-bold" href="/backAccountSetting">帳號權限設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backEnvironmentSetting">系統環境設定</a></li>
+                                <li><a class="dropdown-item fw-bold" href="/backSMTPSetting">SMTP設定</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backSystemSearch">系統登入查詢</a></li>                         
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            基本管理模組
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item fw-bold" href="/backCarouselSetting">輪播圖維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backfastLinkSetting">快速連結維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNewsSetting">最新消息維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNormalQuestionDesSetting">常見問題資訊維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backNoticeSetting">注意事項維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backPaymentSetting">付款提示維護</a></li>
+                            <li><a class="dropdown-item fw-bold" href="/backUnitImage">單元形象維護</a></li>                                                                                                                                                    
+                        </ul>
+                    </li>                    
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-info table-striped table-hover">                    
+                    <tbody>
+                        <tr>
+                            <th scope="col" colspan="4" class="text-center">快速連結排序</th>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="vertical-align:middle;">標題列表</td>
+                            <td scope="col" colspan="3">
+                                <select class="form-control" name="selectMenu" id="selectMenu" size="10">
+                                    {% if result %}
+                                        {% for item in result %}
+                                            <option value="{{ loop.index }}">{{ item[0] }}</option>
+                                        {% endfor %}                           
+                                    {% endif %}                            
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="vertical-align:middle;">功能</td>
+                            <td scope="col" colspan="3" style="vertical-align:middle;">
+                                <input type="button" class="btn btn-info fw-bold" id="moveUpButton" value="上移">
+                                <input type="button" class="btn btn-info fw-bold" id="moveDownButton" value="下移">
+                                <input type="button" class="btn btn-info fw-bold" id="moveToTopButton" value="置頂">
+                                <input type="button" class="btn btn-info fw-bold" id="moveToBottomButton" value="置底">
+                            </td>  
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="4" class="text-center">修改資訊</th>
+                        </tr>
+                        <tr>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:20%;vertical-align:middle;">修改人員</td>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:30%;vertical-align:middle;">{{Handler}}</td>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:20%;vertical-align:middle;">修改日期</td>
+                            <td scope="col" colspan="1" class="text-center fw-bold" style="width:30%;vertical-align:middle;">{{DateTime}}</td>
+                        </tr>
+                        <tr >
+                            <td scope="col" colspan="4" class="text-center">
+                                <input type="submit" class="btn btn-info fw-bold" value="儲存資料">
+                                <input type="submit" class="btn btn-info fw-bold" value="重新設定">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    <div class="modal fade" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutModalLabel">登出系統</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">你確定要登出帳號嗎</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#LogoutResultModal" data-bs-dismiss="modal">確定</a>
+                    <a class="btn btn-secondary" data-bs-dismiss="modal">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="LogoutResultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="LogoutResultModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="LogoutResultModalLabel">帳號登出訊息提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">帳號已登出</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="/backlogut">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='後台網頁/back_04_basic_Management/back_02_FastLinkSetting/back_FastLinkSort.js') }}"></script>
 </body>
 </html>
