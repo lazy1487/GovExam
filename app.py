@@ -265,4 +265,4 @@ app.register_blueprint(back_UnitImageModify)
 app.register_blueprint(back_UnitImageShow)
 # =====基本管理模組==============================================================================================================================
 if __name__ == '__main__':
-    app.run()
+    app.run(host=”0.0.0.0", port=10000)
